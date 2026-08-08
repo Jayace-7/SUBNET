@@ -1,9 +1,10 @@
 import MainLayout from "./conponents/layout/MainLayout";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <MainLayout>
-      <h1>Welcome to SUBNET</h1>
+      <AppRoutes />
     </MainLayout>
   );
 }
