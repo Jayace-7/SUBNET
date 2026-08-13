@@ -1,11 +1,9 @@
-import React from 'react';
-
-const HeroBanner = () => {
+function HeroBanner() {
   return (
-    <section>
-      <p>Hero Banner</p>
-    </section>
+      <section>
+        <p />
+      </section>
   );
-};
+}
 
 export default HeroBanner;
