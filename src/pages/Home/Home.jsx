@@ -1,8 +1,10 @@
+import HeroBanner from "../../conponents/hero/HeroBanner";
+
 function Home() {
   return (
-      <div>
-        <h1></h1>
-      </div>
+    <div>
+      <HeroBanner />
+    </div>
   );
 }
 
