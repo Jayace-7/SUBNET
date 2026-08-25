@@ -97,10 +97,10 @@ function HeroBanner() {
         <div className="w-full max-w-xl px-6 sm:px-10 md:px-16 lg:px-20">
           <p className="text-teal-400 text-lg sm:text-lg font-semibold tracking-[0.25em] mb-2">{FEATURED.label}</p>
 
-          <h1 className="font-title text-white leading-[0.9] text-5xl sm:text-6xl md:text-7xl">
+          <h1 className="font-title text-white leading-[0.9] text-5xl sm:text-6xl md:text-7xl mb-1 mt-2">
             {FEATURED.title}
           </h1>
-          <p className="text-white/90 font-light tracking-[0.35em] text-lg sm:text-xl md:text-2xl mt-1 mb-4">
+          <p className="text-white/90 font-light tracking-[0.30em] text-lg sm:text-xl md:text-2xl mt-1 mb-4">
             {FEATURED.subtitle}
           </p>
 
@@ -130,12 +130,12 @@ function HeroBanner() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 bg-teal-500 text-white hover:bg-teal-400 transition-colors font-semibold text-sm sm:text-base rounded-md px-6 py-3 mb-7">
-              <FiPlay className="w-6 h-6" />
+            <button className="flex items-center gap-2 bg-teal-500 text-white hover:bg-teal-400 transition-colors font-semibold text-sm sm:text-base rounded-md px-6 py-3 mb-7 cursor-pointer">
+              <FiPlay className="w-5 h-5" />
               Watch Now
             </button>
-            <button className="flex items-center gap-2 bg-transparent border border-white/40 hover:border-white/70 transition-colors text-white font-semibold text-sm sm:text-base rounded-md px-6 py-3 mb-7">
-              <FiPlus className="w-6 h-6" />
+            <button className="flex items-center gap-2 bg-transparent border border-white/40 hover:border-white/70 transition-colors text-white font-semibold text-sm sm:text-base rounded-md px-6 py-3 mb-7 cursor-pointer">
+              <FiPlus className="w-5 h-5" />
               My List
             </button>
           </div>
@@ -145,8 +145,8 @@ function HeroBanner() {
       {/* ============================================================
           PAGINATION DOTS
           ============================================================ */}
-      <div className="absolute left-6 sm:left-10 md:left-16 lg:left-20 bottom-10 flex items-center gap-2 z-10">
-        <span className="h-1 w-8 rounded-full bg-teal-400" />
+      <div className="absolute left-6 sm:left-10 md:left-16 lg:left-20 bottom-10 flex items-center gap-2 z-10 ml-3">
+        <span className="h-1 w-7 rounded-full bg-teal-400" />
         <span className="h-1 w-6 rounded-full bg-white/30" />
         <span className="h-1 w-6 rounded-full bg-white/30" />
         <span className="h-1 w-6 rounded-full bg-white/30" />
