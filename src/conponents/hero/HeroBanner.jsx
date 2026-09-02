@@ -93,8 +93,8 @@ function HeroBanner() {
       {/* ============================================================
           MAIN CONTENT
           ============================================================ */}
-      <div className="relative z-10 flex h-full w-full items-center mt-7 sm:mt-10 md:mt-16 lg:mt-20">
-        <div className="w-full max-w-xl px-6 sm:px-10 md:px-16 lg:px-20">
+      <div className="relative z-10 flex h-full w-full items-start pt-52 sm:pt-56 lg:pt-54">
+        <div className="w-full max-w-xl px-6 sm:px-8 lg:px-12">
           <p className="text-teal-400 text-lg sm:text-lg font-semibold tracking-[0.25em] mb-2">{FEATURED.label}</p>
 
           <h1 className="font-title text-white leading-[0.9] text-5xl sm:text-6xl md:text-7xl mb-1 mt-2">
@@ -145,7 +145,7 @@ function HeroBanner() {
       {/* ============================================================
           PAGINATION DOTS
           ============================================================ */}
-      <div className="absolute left-6 sm:left-10 md:left-16 lg:left-20 bottom-10 flex items-center gap-2 z-10 ml-3">
+      <div className="absolute bottom-10 right-6 z-10 flex items-center gap-2 sm:bottom-12 sm:right-10 md:right-16 lg:right-20">
         <span className="h-1 w-7 rounded-full bg-teal-400" />
         <span className="h-1 w-6 rounded-full bg-white/30" />
         <span className="h-1 w-6 rounded-full bg-white/30" />

@@ -86,47 +86,50 @@ function Navbar() {
    <header
       className={`fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-4 sm:px-5 sm:pt-4 lg:px-10`}>
      <div
-       className={`subnet-glow-border w-full max-w-[95%] rounded-[10px] transition-[background-color,backdrop-filter,box-shadow] duration-1000 ${scrolled ? "bg-[#080B0B]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" : "bg-[#070909]/15 shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-md"}`}
+       className={`subnet-glow-border w-full max-w-[97%] rounded-[10px] transition-[background-color,backdrop-filter,box-shadow] duration-1000 ${scrolled ? "bg-[#080B0B]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" : "bg-[#070909]/15 shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-md"}`}
 >
        <nav
            className={`relative flex h-17 items-center justify-between px-6 sm:h-18 sm:px-8 lg:px-10`}>
-          {/* Desktop/mobile brand area. */}
-          <Link
-            to="/"
-            aria-label="SUBNET Home"
-            className="hidden shrink-0 items-center gap-3 lg:flex"
-            onClick={() => setMobileOpen(false)}
-          >
-            <Logo height={150} className="sm:hidden" />
-            <Logo height={150} className="hidden sm:block" />
-          </Link>
+          {/* Keep the brand and page navigation as one left-aligned group.
+              The remaining flex space intentionally creates a calm centre gap. */}
+          <div className="hidden min-w-0 items-center lg:flex">
+            <Link
+              to="/"
+              aria-label="SUBNET Home"
+              className="flex shrink-0 items-center gap-3"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Logo height={150} className="sm:hidden" />
+              <Logo height={150} className="hidden sm:block" />
+            </Link>
 
-          {/* Desktop navigation links. */}
-          <ul className="hidden items-center gap-8 lg:flex xl:gap-10">
-            {NAV_LINKS.map(({ label, to, end }) => (<li key={to}>
-              <NavLink
-                to={to}
-                end={end}
-                className={({ isActive }) =>
-                  `group relative inline-flex py-2 text-[15px] font-medium tracking-[0.01em] transition-colors duration-200 ${
-                    isActive
-                      ? "text-[#00D4C7]"
-                      : "text-white/85 hover:text-[#00D4C7]"
-                  }`
-                }
-              >
-                {({ isActive }) => (<>
-                  {label}
-                  {/* The underline grows from right to left on hover and
-                      stays visible for the active route. */}
-                  <span
-                    aria-hidden={`true`}
-                    className={'pointer-events-none absolute bottom-0 left-0 h-0.5 w-full origin-right rounded-full bg-[#00D4C7] transition-transform duration-350 ease-out ' + (isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100")}
-                  />
-                </>)}
-              </NavLink>
-            </li>))}
-          </ul>
+            {/* Desktop navigation links. */}
+            <ul className="ml-8 flex items-center gap-7 xl:ml-10 xl:gap-9">
+              {NAV_LINKS.map(({ label, to, end }) => (<li key={to}>
+                <NavLink
+                  to={to}
+                  end={end}
+                  className={({ isActive }) =>
+                    `group relative inline-flex py-2 text-[15px] font-medium tracking-[0.01em] transition-colors duration-200 ${
+                      isActive
+                        ? "text-[#00D4C7]"
+                        : "text-white/85 hover:text-[#00D4C7]"
+                    }`
+                  }
+                >
+                  {({ isActive }) => (<>
+                    {label}
+                    {/* The underline grows from right to left on hover and
+                        stays visible for the active route. */}
+                    <span
+                      aria-hidden={`true`}
+                      className={'pointer-events-none absolute bottom-0 left-0 h-0.5 w-full origin-right rounded-full bg-[#00D4C7] transition-transform duration-350 ease-out ' + (isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100")}
+                    />
+                  </>)}
+                </NavLink>
+              </li>))}
+            </ul>
+          </div>
 
           {/* Desktop actions. */}
           <div className="hidden items-center gap-1 lg:flex">
