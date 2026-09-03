@@ -1,4 +1,4 @@
-function Home() {
+function Watch() {
   return (
     <div>
       <h1>Watch</h1>
@@ -6,4 +6,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Watch;
