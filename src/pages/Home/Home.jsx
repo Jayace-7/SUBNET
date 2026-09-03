@@ -1,5 +1,5 @@
-import HeroBanner from "../../conponents/hero/HeroBanner";
-import TrendingNow from "../../conponents/movie/TrendingNow";
+import HeroBanner from "../../components/hero/HeroBanner";
+import TrendingNow from "../../components/movie/TrendingNow";
 
 function Home() {
   return (
