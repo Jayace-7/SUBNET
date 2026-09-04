@@ -1,4 +1,4 @@
-import MainLayout from "./conponents/layout/MainLayout";
+import MainLayout from "./components/layout/MainLayout";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
