@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import "tailwindcss";
 
 :root {
   --font-title: 'Archivo Black', sans-serif;
@@ -33,10 +33,27 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* Prevent transformed carousel cards from creating a page-level horizontal
+     scrollbar. Scrolling remains available with a wheel, touch, or buttons. */
+  html,
+  body,
+  #root {
+    overflow-x: hidden;
+  }
+
   button,
   a {
     -webkit-tap-highlight-color: transparent;
   }
+}
+
+/* Keep scrollable areas usable without showing browser scrollbar tracks. */
+.no-scrollbar {
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /*
@@ -86,6 +103,55 @@
   opacity: 1;
 }
 
+/* Trending cards use the same moving teal perimeter as the navbar. The
+   border is a pseudo-element so it does not alter a card's dimensions. */
+.trend-glow {
+  isolation: isolate;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  will-change: transform;
+}
+
+.trend-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    115deg,
+    transparent 12%,
+    rgba(0, 184, 169, 0.3) 28%,
+    rgba(0, 212, 199, 1) 44%,
+    rgba(0, 184, 169, 0.45) 60%,
+    transparent 78%
+  );
+  background-size: 300% 300%;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.trend-glow:hover,
+.trend-glow--active {
+  transform: translateY(-4px) scale(1.09);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.42);
+}
+
+.trend-glow:hover::before,
+.trend-glow--active::before {
+  opacity: 1;
+  animation: subnet-border-flow 6s linear infinite;
+}
+
 @keyframes subnet-border-flow {
   from {
     background-position: 0% 0%;
@@ -97,6 +163,16 @@
 
 @media (prefers-reduced-motion: reduce) {
   .subnet-glow-border::before {
+    animation: none;
+  }
+
+  .trend-glow:hover,
+  .trend-glow--active {
+    transform: none;
+  }
+
+  .trend-glow:hover::before,
+  .trend-glow--active::before {
     animation: none;
   }
 }

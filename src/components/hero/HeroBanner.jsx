@@ -130,12 +130,12 @@ function HeroBanner() {
           </div>
 
           <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 bg-teal-500 text-white hover:bg-teal-400 transition-colors font-semibold text-sm sm:text-base rounded-md px-6 py-3 mb-7 cursor-pointer">
-              <FiPlay className="w-5 h-5" />
+            <button className="mb-7 flex cursor-pointer items-center gap-1.5 rounded-md bg-teal-500 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-400 hover:shadow-[0_8px_20px_rgba(45,212,191,0.35)]">
+              <FiPlay className="h-4 w-4" />
               Watch Now
             </button>
-            <button className="flex items-center gap-2 bg-transparent border border-white/40 hover:border-white/70 transition-colors text-white font-semibold text-sm sm:text-base rounded-md px-6 py-3 mb-7 cursor-pointer">
-              <FiPlus className="w-5 h-5" />
+            <button className="mb-7 flex cursor-pointer items-center gap-1.5 rounded-md border border-white/40 bg-transparent px-4 py-2 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00D4C7] hover:bg-white/10 hover:shadow-[0_8px_20px_rgba(0,212,199,0.2)]">
+              <FiPlus className="h-4 w-4" />
               My List
             </button>
           </div>
@@ -146,10 +146,10 @@ function HeroBanner() {
           PAGINATION DOTS
           ============================================================ */}
       <div className="absolute bottom-10 right-6 z-10 flex items-center gap-2 sm:bottom-12 sm:right-10 md:right-16 lg:right-20">
-        <span className="h-1 w-7 rounded-full bg-teal-400" />
-        <span className="h-1 w-6 rounded-full bg-white/30" />
-        <span className="h-1 w-6 rounded-full bg-white/30" />
-        <span className="h-1 w-6 rounded-full bg-white/30" />
+        <span className="h-0.5 w-7 rounded-full bg-teal-400" />
+        <span className="h-0.5 w-6 rounded-full bg-white/30" />
+        <span className="h-0.5 w-6 rounded-full bg-white/30" />
+        <span className="h-0.5 w-6 rounded-full bg-white/30" />
       </div>
     </section>
   );

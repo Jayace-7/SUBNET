@@ -84,9 +84,9 @@ function Navbar() {
       the visual surface that receives the SUBNET animated border.
     */}
    <header
-      className={`fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-4 sm:px-5 sm:pt-4 lg:px-10`}>
+      className={`fixed inset-x-0 top-0 z-50 flex justify-center px-3 sm:px-5 lg:px-10`}>
      <div
-       className={`subnet-glow-border w-full max-w-[97%] rounded-[10px] transition-[background-color,backdrop-filter,box-shadow] duration-1000 ${scrolled ? "bg-[#080B0B]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" : "bg-[#070909]/15 shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-md"}`}
+       className={`subnet-glow-border w-full rounded-[10px] transition-[background-color,backdrop-filter,box-shadow] duration-1000 ${scrolled ? "bg-[#080B0B]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" : "bg-[#070909]/15 shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-md"}`}
 >
        <nav
            className={`relative flex h-17 items-center justify-between px-6 sm:h-18 sm:px-8 lg:px-10`}>
@@ -112,20 +112,16 @@ function Navbar() {
                   className={({ isActive }) =>
                     `group relative inline-flex py-2 text-[15px] font-medium tracking-[0.01em] transition-colors duration-200 ${
                       isActive
-                        ? "text-[#00D4C7]"
+                        ? "text-[#00D4C7] [text-shadow:0_0_10px_rgba(0,212,199,0.8)]"
                         : "text-white/85 hover:text-[#00D4C7]"
                     }`
                   }
                 >
-                  {({ isActive }) => (<>
-                    {label}
-                    {/* The underline grows from right to left on hover and
-                        stays visible for the active route. */}
-                    <span
-                      aria-hidden={`true`}
-                      className={'pointer-events-none absolute bottom-0 left-0 h-0.5 w-full origin-right rounded-full bg-[#00D4C7] transition-transform duration-350 ease-out ' + (isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100")}
-                    />
-                  </>)}
+                  {label}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-[#00D4C7] transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  />
                 </NavLink>
               </li>))}
             </ul>
