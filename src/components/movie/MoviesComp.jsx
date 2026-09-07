@@ -84,35 +84,35 @@ function MoviesComp({
             <button
               type="button"
               aria-label={`Play ${title}`}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black transition-colors duration-150 hover:bg-white/85"
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black transition-colors duration-150 hover:bg-white/85 cursor-pointer"
             >
               <FiPlay size={14} />
             </button>
             <button
               type="button"
               aria-label="Remind me"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white cursor-pointer"
             >
               <FiBell size={14} />
             </button>
             <button
               type="button"
               aria-label="Add to My List"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white cursor-pointer"
             >
               <FiPlus size={14} />
             </button>
             <button
               type="button"
               aria-label="Like"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white cursor-pointer"
             >
               <FiThumbsUp size={14} />
             </button>
             <button
               type="button"
               aria-label="More details"
-              className="ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white"
+              className="ml-auto flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white cursor-pointer"
             >
               <FiChevronDown size={14} />
             </button>

@@ -125,7 +125,7 @@ function TrendingNow() {
   };
 
   return (
-    <section className="w-full py-9">
+    <section className="w-full py-9 mt-2">
       {/* Header row: title + pagination dots, matching the Prime Video
           "See more" pattern but using dots instead of a text link, per
           the approved reference. */}
