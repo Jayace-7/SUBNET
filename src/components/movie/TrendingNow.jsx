@@ -148,14 +148,13 @@ function TrendingNow() {
           <FiChevronLeft size={20} />
         </button>
 
-        {/* overflow-x-auto handles paging via scrollBy; overflow-y-visible
-            (the default) keeps the expanded hover panel from being
-            clipped vertically. Scrollbar hidden via the .no-scrollbar
-            utility added to index.css. */}
+        {/* The extra vertical padding gives the lifted/scaled hover card room
+            inside the horizontal scroller. Scrollbar hidden via the
+            .no-scrollbar utility added to index.css. */}
         <div
           ref={rowRef}
           onScroll={handleScroll}
-          className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth px-4 py-2 sm:px-6"
+          className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth px-4 py-4 sm:px-6"
         >
           {MOVIES.map((movie, index) => (
             <MoviesComp
