@@ -30,7 +30,7 @@ function MoviesComp({
     <div
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
-      className={`trend-glow relative w-40 shrink-0 cursor-pointer overflow-hidden rounded-lg sm:w-48 ${
+      className={`trend-glow relative w-36 shrink-0 cursor-pointer overflow-hidden rounded-lg sm:w-44 ${
         isHovered ? "trend-glow--active z-10" : "z-0"
       }`}
     >

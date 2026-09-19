@@ -17,6 +17,8 @@ import dunePoster from "../../assets/trending/Dune Part Two.png";
 import oppenheimerPoster from "../../assets/trending/Oppenheimer.png";
 import spidermanPoster from "../../assets/trending/Spider-Man.jpg";
 import batmanPoster from "../../assets/trending/The Batman.jpg";
+import avatarFireAndAshPoster from "../../assets/trending/Avatar Fire And Ash.jpg";
+import captainAmericaPoster from "../../assets/trending/Captain America Brave New World.jpg";
 
 // Placeholder metadata until real movie data exists — swap this for an
 // API/DB response later without touching the layout below.
@@ -86,6 +88,16 @@ const MOVIES = [
     quality: "HD",
     genres: ["Action", "Crime"],
   },
+  {
+    id: "avatar-fire-and-ash",
+    title: "Avatar: Fire and Ash",
+    poster: avatarFireAndAshPoster,
+  },
+  {
+    id: "captain-america-brave-new-world",
+    title: "Captain America: Brave New World",
+    poster: captainAmericaPoster,
+  },
 ];
 
 function TrendingNow() {
@@ -121,7 +133,7 @@ function TrendingNow() {
   const scrollByPage = (direction) => {
     const row = rowRef.current;
     if (!row) return;
-    row.scrollBy({ left: direction * row.clientWidth * 0.9, behavior: "smooth" });
+    row.scrollBy({ left: direction * row.clientWidth, behavior: "smooth" });
   };
 
   return (

@@ -7,7 +7,7 @@ const MOVIES = [];
 function Series() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const rowRef = useRef(null);
-  const scrollByPage = (direction) => rowRef.current?.scrollBy({ left: direction * rowRef.current.clientWidth * 0.9, behavior: "smooth" });
+  const scrollByPage = (direction) => rowRef.current?.scrollBy({ left: direction * rowRef.current.clientWidth, behavior: "smooth" });
 
   return (
     <section className="w-full py-9 mt-2">
