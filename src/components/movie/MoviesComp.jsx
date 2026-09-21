@@ -15,11 +15,11 @@ import {
 function MoviesComp({
   title,
   poster,
-  year,
-  rating,
-  duration,
-  quality,
-  type,
+  year = "2024",
+  rating = "16+",
+  duration = "2h",
+  quality = "HD",
+  type = "Movie",
   genres = [],
   badge,
   compact = false,
@@ -61,8 +61,6 @@ function MoviesComp({
             isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
           }`}
         >
-          <p className="mb-1 text-sm font-semibold text-white">{title}</p>
-
           <div className="mb-1.5 flex flex-wrap items-center gap-2 text-[11px] text-white">
             {year && <span>{year}</span>}
             {rating && (

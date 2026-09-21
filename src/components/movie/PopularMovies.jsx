@@ -7,6 +7,17 @@ const movieFiles = import.meta.glob("../../assets/popularmovies/*.{jpg,jpeg,png,
   import: "default",
 });
 
+const POPULAR_GENRES = {
+  doomsday: ["Action", "Sci-Fi"],
+  "f1 movie": ["Sport", "Drama"],
+  f4: ["Action", "Thriller"],
+  micheal: ["Drama", "Biography"],
+  mm: ["Drama", "Romance"],
+  odessy: ["Adventure", "Drama"],
+  rrt: ["Action", "Comedy"],
+  sbnd: ["Action", "Thriller"],
+};
+
 const MOVIES = Object.entries(movieFiles)
   .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
   .map(([path, poster]) => {
@@ -16,6 +27,7 @@ const MOVIES = Object.entries(movieFiles)
       id: fileName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""),
       title: fileName.replace(/[-_]/g, " "),
       poster,
+      genres: POPULAR_GENRES[fileName.toLowerCase()] ?? [],
       badge: /doomsday/i.test(fileName) ? "COMING SOON" : undefined,
     };
   });

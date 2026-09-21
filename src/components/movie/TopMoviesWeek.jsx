@@ -7,6 +7,15 @@ const movieFiles = import.meta.glob("../../assets/**/*.{jpg,jpeg,png,webp}", {
   import: "default",
 });
 
+const getGenresFromPath = (path) => {
+  const category = path.split("/").at(-2);
+  if (!category) return [];
+
+  return category
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+};
+
 const MOVIE_POSTERS = Object.entries(movieFiles)
   .filter(([path]) => !/(\/hero\/|\/logo\/|\/icons\/|\/videos\/)/i.test(path))
   .map(([path, poster]) => {
@@ -16,6 +25,7 @@ const MOVIE_POSTERS = Object.entries(movieFiles)
       id: fileName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""),
       title: fileName.replace(/[-_]/g, " "),
       poster,
+      genres: getGenresFromPath(path),
     };
   });
 
