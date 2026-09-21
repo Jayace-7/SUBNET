@@ -4,10 +4,7 @@
 // that drives the Netflix-style expand + neighbor-push effect; MoviesComp
 // stays a dumb presentational card.
 
-import { useEffect, useRef, useState } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-
-import MoviesComp from "./MoviesComp";
+import MovieRow from "./MovieRow";
 
 // NOTE: these filenames contain spaces/an "&" — they must match the
 // actual files in src/assets/trending/ exactly (case + spacing).
@@ -101,106 +98,7 @@ const MOVIES = [
 ];
 
 function TrendingNow() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [activeDot, setActiveDot] = useState(0);
-  const [dotCount, setDotCount] = useState(1);
-  const rowRef = useRef(null);
-
-  // Recompute how many "pages" the row has whenever it resizes, so the
-  // pagination dots stay accurate instead of a hardcoded guess.
-  useEffect(() => {
-    const row = rowRef.current;
-    if (!row) return undefined;
-
-    const updateDotCount = () => {
-      const pages = Math.max(1, Math.ceil(row.scrollWidth / row.clientWidth));
-      setDotCount(pages);
-    };
-
-    updateDotCount();
-    window.addEventListener("resize", updateDotCount);
-    return () => window.removeEventListener("resize", updateDotCount);
-  }, []);
-
-  // Keep the active pagination dot in sync with actual scroll position.
-  const handleScroll = () => {
-    const row = rowRef.current;
-    if (!row) return;
-    const page = Math.round(row.scrollLeft / row.clientWidth);
-    setActiveDot(page);
-  };
-
-  const scrollByPage = (direction) => {
-    const row = rowRef.current;
-    if (!row) return;
-    row.scrollBy({ left: direction * row.clientWidth, behavior: "smooth" });
-  };
-
-  return (
-    <section className="w-full py-9 mt-2">
-      {/* Header row: title + pagination dots, matching the Prime Video
-          "See more" pattern but using dots instead of a text link, per
-          the approved reference. */}
-      <div className="mb-3 ml-2 flex w-full items-center px-4 sm:px-6">
-        <h2 className="text-xl font-bold text-white sm:text-2xl">
-          Trending Now
-        </h2>
-      </div>
-
-      {/* Row wrapper: relative so the prev/next arrows can be absolutely
-          positioned at its edges, and group so they only reveal on
-          hover of the row itself. */}
-      <div className="group relative w-full">
-        <button
-          type="button"
-          onClick={() => scrollByPage(-1)}
-          aria-label="Previous"
-          className="absolute left-4 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity duration-200 hover:bg-black/95 group-hover:opacity-100 sm:left-6"
-        >
-          <FiChevronLeft size={20} />
-        </button>
-
-        {/* The extra vertical padding gives the lifted/scaled hover card room
-            inside the horizontal scroller. Scrollbar hidden via the
-            .no-scrollbar utility added to index.css. */}
-        <div
-          ref={rowRef}
-          onScroll={handleScroll}
-          className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth px-4 py-4 sm:px-6"
-        >
-          {MOVIES.map((movie, index) => (
-            <MoviesComp
-              key={movie.id}
-              {...movie}
-              isHovered={hoveredIndex === index}
-              onHoverStart={() => setHoveredIndex(index)}
-              onHoverEnd={() => setHoveredIndex(null)}
-            />
-          ))}
-        </div>
-
-        <button
-          type="button"
-          onClick={() => scrollByPage(1)}
-          aria-label="Next"
-          className="absolute right-4 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity duration-200 hover:bg-black/95 group-hover:opacity-100 sm:right-6"
-        >
-          <FiChevronRight size={20} />
-        </button>
-      </div>
-
-      <div className="mt-3 flex items-center justify-center gap-1.5">
-        {Array.from({ length: dotCount }).map((_, i) => (
-          <span
-            key={i}
-            className={`h-1 rounded-full transition-all duration-300 ${
-              i === activeDot ? "w-6 bg-[#00D4C7]" : "w-3 bg-white/25"
-            }`}
-          />
-        ))}
-      </div>
-    </section>
-  );
+  return <MovieRow title="Trending Now" movies={MOVIES} className="mt-2 w-full py-9" ariaLabel="Trending" />;
 }
 
 export default TrendingNow;
