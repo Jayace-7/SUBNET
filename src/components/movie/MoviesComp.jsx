@@ -22,6 +22,7 @@ function MoviesComp({
   type,
   genres = [],
   badge,
+  compact = false,
   isHovered,
   onHoverStart,
   onHoverEnd,
@@ -30,7 +31,9 @@ function MoviesComp({
     <div
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
-      className={`trend-glow relative w-36 shrink-0 cursor-pointer overflow-hidden rounded-lg sm:w-44 ${
+      className={`trend-glow relative shrink-0 cursor-pointer overflow-hidden rounded-lg bg-[#151918] ${
+        compact ? "w-28 sm:w-28 md:w-28 lg:w-36" : "w-36 sm:w-44"
+      } ${
         isHovered ? "trend-glow--active z-10" : "z-0"
       }`}
     >
@@ -39,7 +42,9 @@ function MoviesComp({
         <img
           src={poster}
           alt={title}
-          className="h-full w-full object-cover"
+          className={`h-full w-full object-cover transition-transform duration-300 ease-out ${
+            isHovered ? "scale-105" : "scale-100"
+          }`}
         />
 
         {/* Optional ribbon, e.g. "New Season" / "Recently Added" — kept
@@ -52,8 +57,8 @@ function MoviesComp({
         )}
 
         <div
-          className={`absolute inset-x-0 bottom-0 bg-linear-to-t from-black via-black/95 to-transparent px-3 pb-3 pt-12 transition-all duration-200 ${
-            isHovered ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+          className={`absolute inset-x-0 bottom-0 bg-linear-to-t from-[#0b0d0d] via-[#0b0d0d]/95 to-transparent px-3 pb-3 pt-14 transition-all duration-300 ease-out ${
+            isHovered ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
           }`}
         >
           <p className="mb-1 text-sm font-semibold text-white">{title}</p>

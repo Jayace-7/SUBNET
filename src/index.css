@@ -107,7 +107,8 @@
    border is a pseudo-element so it does not alter a card's dimensions. */
 .trend-glow {
   isolation: isolate;
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transform-origin: center center;
+  transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms ease;
   will-change: transform;
 }
 
@@ -142,8 +143,8 @@
 
 .trend-glow:hover,
 .trend-glow--active {
-  transform: translateY(-4px) scale(1.09);
-  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.42);
+  transform: translateY(-7px) scale(1.06);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 199, 0.16);
 }
 
 .trend-glow:hover::before,

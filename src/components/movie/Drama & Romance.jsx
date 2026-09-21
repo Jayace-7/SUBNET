@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import MoviesComp from "./MoviesComp";
 
-const movieFiles = import.meta.glob("../../assets/series/*.{jpg,jpeg,png,webp}", {
+const movieFiles = import.meta.glob("../../assets/drama and romance/*.{jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 });
@@ -19,7 +19,7 @@ const MOVIES = Object.entries(movieFiles)
     };
   });
 
-function Series() {
+function DramaRomance() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [activeDot, setActiveDot] = useState(0);
   const [dotCount, setDotCount] = useState(1);
@@ -49,9 +49,9 @@ function Series() {
 
   return (
     <section className="mt-0 w-full py-4">
-      <h2 className="mb-3 ml-2 px-4 text-xl font-bold text-white sm:px-6 sm:text-2xl">Series</h2>
+      <h2 className="mb-3 ml-2 px-4 text-xl font-bold text-white sm:px-6 sm:text-2xl">Drama & Romance</h2>
       <div className="group relative w-full">
-        <button type="button" onClick={() => scrollByPage(-1)} aria-label="Previous series" className="absolute left-4 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity hover:bg-black/95 group-hover:opacity-100 sm:left-6"><FiChevronLeft size={20} /></button>
+        <button type="button" onClick={() => scrollByPage(-1)} aria-label="Previous drama and romance" className="absolute left-4 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity hover:bg-black/95 group-hover:opacity-100 sm:left-6"><FiChevronLeft size={20} /></button>
         <div ref={rowRef} onScroll={handleScroll} className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth px-4 py-4 sm:px-6">
           {MOVIES.map((movie, index) => (
             <MoviesComp
@@ -63,7 +63,7 @@ function Series() {
             />
           ))}
         </div>
-        <button type="button" onClick={() => scrollByPage(1)} aria-label="Next series" className="absolute right-4 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity hover:bg-black/95 group-hover:opacity-100 sm:right-6"><FiChevronRight size={20} /></button>
+        <button type="button" onClick={() => scrollByPage(1)} aria-label="Next drama and romance" className="absolute right-4 top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity hover:bg-black/95 group-hover:opacity-100 sm:right-6"><FiChevronRight size={20} /></button>
       </div>
 
       <div className="mt-3 flex items-center justify-center gap-1.5">
@@ -80,4 +80,4 @@ function Series() {
   );
 }
 
-export default Series;
+export default DramaRomance;
