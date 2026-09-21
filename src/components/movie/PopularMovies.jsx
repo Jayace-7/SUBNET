@@ -2,7 +2,23 @@ import { useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import MoviesComp from "./MoviesComp";
 
-const MOVIES = [];
+const movieFiles = import.meta.glob("../../assets/popularmovies/*.{jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+});
+
+const MOVIES = Object.entries(movieFiles)
+  .sort(([firstPath], [secondPath]) => firstPath.localeCompare(secondPath))
+  .map(([path, poster]) => {
+    const fileName = path.split("/").pop().replace(/\.[^/.]+$/, "");
+
+    return {
+      id: fileName.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, ""),
+      title: fileName.replace(/[-_]/g, " "),
+      poster,
+      badge: /doomsday/i.test(fileName) ? "COMING SOON" : undefined,
+    };
+  });
 
 function PopularMovies() {
   const [hoveredIndex, setHoveredIndex] = useState(null);

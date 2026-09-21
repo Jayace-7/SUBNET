@@ -15,12 +15,14 @@ import AnimatedShows from "../../components/movie/Animated shows";
 import Anime from "../../components/movie/Anime";
 import KidsShows from "../../components/movie/KidsShows";
 import Nollywood from "../../components/movie/Nollywood";
+import PopularMovies from "../../components/movie/PopularMovies";
 
 function Home() {
   return (
     <div>
       <HeroBanner />
       <TrendingNow />
+      <PopularMovies />
       <Action />
       <TopMoviesWeek />
       <Series />
