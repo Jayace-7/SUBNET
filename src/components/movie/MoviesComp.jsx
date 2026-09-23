@@ -31,6 +31,7 @@ function MoviesComp({
     <div
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
+      onTouchStart={onHoverStart}
       className={`trend-glow relative shrink-0 cursor-pointer overflow-hidden rounded-lg bg-[#151918] ${
         compact ? "w-28 sm:w-28 md:w-28 lg:w-36" : "w-36 sm:w-44"
       } ${

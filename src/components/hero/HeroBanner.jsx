@@ -49,7 +49,7 @@ function HeroBanner() {
     <section
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative z-0 mx-5 mt-22 h-[clamp(27rem,calc(100svh-6.5rem),46rem)] w-[calc(50%-2.5rem)] overflow-hidden rounded-2xl border border-[#00D4C7]/35 bg-[#070909] shadow-[0_0_0_1px_rgba(0,212,199,0.08),0_10px_36px_rgba(0,212,199,0.14)] sm:mx-8 sm:mt-26 sm:w-[calc(100%-4rem)]"
+      className="relative z-0 mx-5 mt-22 h-[clamp(27rem,calc(100svh-6.5rem),46rem)] w-[calc(100%-2.5rem)] overflow-hidden rounded-2xl border border-[#00D4C7]/35 bg-[#070909] shadow-[0_0_0_1px_rgba(0,212,199,0.08),0_10px_36px_rgba(0,212,199,0.14)] sm:mx-8 sm:mt-26 sm:w-[calc(100%-4rem)]"
     >
       {/* ============================================================
           BACKGROUND LAYER: poster image + trailer video crossfade
@@ -94,10 +94,10 @@ function HeroBanner() {
           MAIN CONTENT
           ============================================================ */}
       <div className="relative z-10 flex h-full w-full items-end pb-4 sm:pb-6">
-        <div className="w-full max-w-lg px-6 sm:px-8 lg:px-12">
-          <p className="text-teal-400 text-md sm:text-base font-semibold tracking-[0.25em] mb-1">{FEATURED.label}</p>
+        <div className="w-full max-w-lg px-5 sm:px-8 lg:px-12">
+          <p className="text-sm font-semibold tracking-[0.2em] text-teal-400 sm:text-base sm:tracking-[0.25em]">{FEATURED.label}</p>
 
-          <h1 className="font-title text-white leading-[0.9] text-3xl sm:text-4xl md:text-5xl mb-1">
+          <h1 className="mb-1 font-title text-4xl leading-[0.9] text-white sm:text-4xl md:text-5xl">
             {FEATURED.title}
           </h1>
           <p className="text-white/90 font-light tracking-[0.30em] text-base sm:text-lg mb-2">
