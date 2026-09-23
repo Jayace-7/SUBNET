@@ -65,7 +65,8 @@
 .subnet-glow-border {
   position: relative;
   isolation: isolate;
-  border: 1px solid rgba(0, 184, 169, 0.35);
+  border: 1px solid transparent;
+  transition: border-color 300ms ease, box-shadow 300ms ease;
 }
 
 .subnet-glow-border::before {
@@ -93,14 +94,22 @@
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   mask-composite: exclude;
-  opacity: 0.8;
+  opacity: 0;
   pointer-events: none;
   animation: subnet-border-flow 8s linear infinite;
 }
 
 .subnet-glow-border:hover::before,
-.subnet-glow-border:focus-within::before {
+.subnet-glow-border:focus-within::before,
+.subnet-glow-border--active::before {
   opacity: 1;
+}
+
+.subnet-glow-border:hover,
+.subnet-glow-border:focus-within,
+.subnet-glow-border--active {
+  border-color: rgba(0, 212, 199, 0.8);
+  box-shadow: 0 0 18px rgba(0, 212, 199, 0.2), 0 12px 40px rgba(0, 0, 0, 0.35);
 }
 
 /* Trending cards use the same moving teal perimeter as the navbar. The

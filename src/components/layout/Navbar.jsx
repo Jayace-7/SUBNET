@@ -84,9 +84,10 @@ function Navbar() {
       the visual surface that receives the SUBNET animated border.
     */}
    <header
-      className={`fixed inset-x-0 top-0 z-50 flex justify-center px-3 sm:px-5 lg:px-10`}>
+      className="fixed inset-x-0 top-0 z-50 flex w-full justify-center cursor-pointer"
+    >
      <div
-       className={`subnet-glow-border w-full rounded-[10px] transition-[background-color,backdrop-filter,box-shadow] duration-1000 ${scrolled ? "bg-[#080B0B]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" : "bg-[#070909]/15 shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-md"}`}
+      className={`subnet-glow-border w-full transition-[background-color,backdrop-filter,box-shadow] duration-500 ${scrolled ? "subnet-glow-border--active bg-[#080B0B]/95 shadow-[0_8px_30px_rgba(0,212,199,0.18),0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl" : "bg-transparent shadow-none backdrop-blur-none"}`}
 >
        <nav
            className={`relative flex h-17 items-center justify-between px-6 sm:h-18 sm:px-8 lg:px-10`}>
@@ -104,7 +105,7 @@ function Navbar() {
             </Link>
 
             {/* Desktop navigation links. */}
-            <ul className="ml-8 flex items-center gap-7 xl:ml-10 xl:gap-9">
+            <ul className="ml-8 flex items-center gap-7 xl:ml-10 xl:gap-9 mt-4">
               {NAV_LINKS.map(({ label, to, end }) => (<li key={to}>
                 <NavLink
                   to={to}
@@ -128,7 +129,7 @@ function Navbar() {
           </div>
 
           {/* Desktop actions. */}
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center gap-1 lg:flex mt-3">
             <button
               type="button"
               onClick={goToSearch}
