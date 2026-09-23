@@ -134,7 +134,7 @@ function Navbar() {
               type="button"
               onClick={goToSearch}
               aria-label="Search"
-              className="rounded-full p-2.5 text-white/85 transition-colors duration-200 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9]"
+              className="rounded-full p-2.5 text-white/85 transition-colors duration-200 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9] cursor-pointer"
             >
               <FiSearch size={21} strokeWidth={1.8} />
             </button>
@@ -144,7 +144,7 @@ function Navbar() {
             <button
               type="button"
               aria-label="Notifications"
-              className="rounded-full p-2.5 text-white/85 transition-colors duration-200 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9]"
+              className="rounded-full p-2.5 text-white/85 transition-colors duration-200 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9] *:cursor-pointer"
             >
               <FiBell size={21} strokeWidth={1.8} />
             </button>
@@ -157,7 +157,7 @@ function Navbar() {
                 onClick={() => setProfileOpen((open) => !open)}
                 aria-haspopup="menu"
                 aria-expanded={profileOpen}
-                className="flex items-center gap-4 rounded-full p-2 text-white/85 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9]"
+                className="flex items-center gap-4 rounded-full p-2 text-white/85 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9] *:cursor-pointer"
               >
                 <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/8">
                   <FiUser size={16} strokeWidth={1.8} />
@@ -165,7 +165,7 @@ function Navbar() {
                 <FiChevronDown
                   size={16}
                 className={`-ml-1 transition-transform duration-200 ${
-                profileOpen ? "rotate-180" : ""
+                profileOpen ? "rotate-180" : "cursor-pointer"
         }`}
                 />
               </button>
