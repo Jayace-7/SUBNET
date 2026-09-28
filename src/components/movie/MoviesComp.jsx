@@ -43,6 +43,8 @@ function MoviesComp({
         <img
           src={poster}
           alt={title}
+          loading="lazy"
+          decoding="async"
           className={`h-full w-full object-cover transition-transform duration-300 ease-out ${
             isHovered ? "scale-105" : "scale-100"
           }`}
