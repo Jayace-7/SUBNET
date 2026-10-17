@@ -1,13 +1,13 @@
 import MovieRow from "./MovieRow";
 
-import despicableMePoster from "../../assets/kids shows/Despicable Me.jpg";
-import toyStoryPoster from "../../assets/kids shows/Toy Story.jpg";
-import lionKingPoster from "../../assets/kids shows/The Lion King.jpg";
-import moanaPoster from "../../assets/kids shows/Moana.jpg";
-import kungFuPandaPoster from "../../assets/kids shows/Kung Fu Panda.jpg";
-import dragonPoster from "../../assets/kids shows/How to Train Your Dragon.jpg";
-import frozenPoster from "../../assets/kids shows/frozen 2.jpg";
-import zootopiaPoster from "../../assets/kids shows/zootopia.jpg";
+import despicableMePoster from "../../assets/kids shows/Despicable Me.webp";
+import toyStoryPoster from "../../assets/kids shows/Toy Story.webp";
+import lionKingPoster from "../../assets/kids shows/The Lion King.webp";
+import moanaPoster from "../../assets/kids shows/Moana.webp";
+import kungFuPandaPoster from "../../assets/kids shows/Kung Fu Panda.webp";
+import dragonPoster from "../../assets/kids shows/How to Train Your Dragon.webp";
+import frozenPoster from "../../assets/kids shows/frozen 2.webp";
+import zootopiaPoster from "../../assets/kids shows/zootopia.webp";
 
 const MOVIES = [
   { id: "despicable-me", title: "Despicable Me", poster: despicableMePoster },

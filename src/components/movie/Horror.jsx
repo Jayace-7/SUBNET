@@ -1,6 +1,6 @@
 import MovieRow from "./MovieRow";
 
-const movieFiles = import.meta.glob("../../assets/horror/*.{jpg,jpeg,png,webp}", {
+const movieFiles = import.meta.glob("../../assets/horror/*.webp", {
   eager: true,
   import: "default",
 });

@@ -17,9 +17,9 @@ import AnimatedShows from "../../components/movie/Animated shows";
 import Anime from "../../components/movie/Anime";
 import KidsShows from "../../components/movie/KidsShows";
 import Nollywood from "../../components/movie/Nollywood";
-import moviesHeroImage from "../../assets/movies hero/Spider man brand new day.jpg";
+import moviesHeroImage from "../../assets/movies hero/Spider man brand new day.webp";
 import moviesHeroTrailer from "../../assets/movies hero/SPIDER-MAN_ BRAND NEW DAY – Final Trailer (Peter’s Journey) 4K.mp4";
-import spiderManPoster from "../../assets/popularmovies/SBND.jpg";
+import spiderManPoster from "../../assets/popularmovies/SBND.webp";
 
 const filters = [
   ["Genre", "All Genres", ["All Genres", "Action", "Comedy", "Drama"]],

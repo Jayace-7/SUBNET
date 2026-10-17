@@ -94,6 +94,8 @@ function MovieRow({
 
   const previousLabel = `Previous ${ariaLabel ?? title}`;
   const nextLabel = `Next ${ariaLabel ?? title}`;
+  const arrowButtonClass =
+    "absolute inset-y-0 z-50 flex w-14 items-center justify-center bg-transparent text-transparent transition-colors duration-200 hover:bg-[#070909]/70 hover:text-white focus-visible:bg-[#070909]/70 focus-visible:text-white focus-visible:outline-none";
 
   return (
     <section className={className}>
@@ -108,12 +110,12 @@ function MovieRow({
         </h2>
       </div>
 
-      <div className={`group relative ${ranked ? "" : "w-full"}`}>
+      <div className={`relative ${ranked ? "" : "w-half"} mx-auto flex items-center`}>
         <button
           type="button"
           onClick={() => scrollByPage(-1)}
           aria-label={previousLabel}
-          className={`absolute ${ranked ? "left-0" : "left-4 sm:left-6"} top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity hover:bg-black/95 group-hover:opacity-100`}
+          className={`${arrowButtonClass} left-0`}
         >
           <FiChevronLeft size={20} />
         </button>
@@ -155,7 +157,7 @@ function MovieRow({
           type="button"
           onClick={() => scrollByPage(1)}
           aria-label={nextLabel}
-          className={`absolute ${ranked ? "right-0" : "right-4 sm:right-6"} top-1/2 z-50 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/75 text-white opacity-0 shadow-lg transition-opacity hover:bg-black/95 group-hover:opacity-100`}
+          className={`${arrowButtonClass} right-0`}
         >
           <FiChevronRight size={20} />
         </button>

@@ -6,7 +6,7 @@
 import { useRef, useState } from "react";
 import { FiPlay, FiPlus } from "react-icons/fi";
 
-import heroImage from "../../assets/hero/dune-part-two-hero.jpg";
+import heroImage from "../../assets/hero/dune-part-two-hero.webp";
 import heroTrailer from "../../assets/hero/dune-part-two-preview.mp4";
 
 const FEATURED = {

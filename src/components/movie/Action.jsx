@@ -1,13 +1,13 @@
 import MovieRow from "./MovieRow";
 
-import avengersEndgamePoster from "../../assets/action/Avengers Endgame.jpg";
-import johnWickPoster from "../../assets/action/John Wick  Chapter 4.jpg";
-import madMaxPoster from "../../assets/action/Mad Max Fury Road.jpg";
-import missionImpossiblePoster from "../../assets/action/Mission Impossible  Dead Reckoning.jpg";
-import equalizerPoster from "../../assets/action/The Equalizer 3.jpg";
-import topGunPoster from "../../assets/action/Top Gun Maverick.jpg";
-import shazamPoster from "../../assets/action/shazam.jpg";
-import transformersPoster from "../../assets/action/Transformers the last knight.jpg";
+import avengersEndgamePoster from "../../assets/action/Avengers Endgame.webp";
+import johnWickPoster from "../../assets/action/John Wick  Chapter 4.webp";
+import madMaxPoster from "../../assets/action/Mad Max Fury Road.webp";
+import missionImpossiblePoster from "../../assets/action/Mission Impossible  Dead Reckoning.webp";
+import equalizerPoster from "../../assets/action/The Equalizer 3.webp";
+import topGunPoster from "../../assets/action/Top Gun Maverick.webp";
+import shazamPoster from "../../assets/action/shazam.webp";
+import transformersPoster from "../../assets/action/Transformers the last knight.webp";
 
 const MOVIES = [
   { id: "avengers-endgame", title: "Avengers: Endgame", poster: avengersEndgamePoster },

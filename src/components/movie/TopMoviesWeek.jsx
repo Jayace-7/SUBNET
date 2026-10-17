@@ -1,7 +1,7 @@
 import { useState } from "react";
 import MovieRow from "./MovieRow";
 
-const movieFiles = import.meta.glob("../../assets/**/*.{jpg,jpeg,png,webp}", {
+const movieFiles = import.meta.glob("../../assets/**/*.webp", {
   eager: true,
   import: "default",
 });

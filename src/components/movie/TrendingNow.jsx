@@ -8,14 +8,14 @@ import MovieRow from "./MovieRow";
 
 // NOTE: these filenames contain spaces/an "&" — they must match the
 // actual files in src/assets/trending/ exactly (case + spacing).
-import avatarPoster from "../../assets/trending/Avatar The Last Airbender.jpg";
-import deadpoolPoster from "../../assets/trending/Deadpool & Wolverine.jpg";
-import dunePoster from "../../assets/trending/Dune Part Two.png";
-import oppenheimerPoster from "../../assets/trending/Oppenheimer.png";
-import spidermanPoster from "../../assets/trending/Spider-Man.jpg";
-import batmanPoster from "../../assets/trending/The Batman.jpg";
-import avatarFireAndAshPoster from "../../assets/trending/Avatar Fire And Ash.jpg";
-import captainAmericaPoster from "../../assets/trending/Captain America Brave New World.jpg";
+import avatarPoster from "../../assets/trending/Avatar The Last Airbender.webp";
+import deadpoolPoster from "../../assets/trending/Deadpool & Wolverine.webp";
+import dunePoster from "../../assets/trending/Dune Part Two.webp";
+import oppenheimerPoster from "../../assets/trending/Oppenheimer.webp";
+import spidermanPoster from "../../assets/trending/Spider-Man.webp";
+import batmanPoster from "../../assets/trending/The Batman.webp";
+import avatarFireAndAshPoster from "../../assets/trending/Avatar Fire And Ash.webp";
+import captainAmericaPoster from "../../assets/trending/Captain America Brave New World.webp";
 
 // Placeholder metadata until real movie data exists — swap this for an
 // API/DB response later without touching the layout below.

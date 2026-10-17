@@ -1,13 +1,13 @@
 import MovieRow from "./MovieRow";
 
-import anikulapoPoster from "../../assets/nollywood movies/Anikulapo.jpg";
-import atikoPoster from "../../assets/nollywood movies/Atiko.jpg";
-import kingOfBoysPoster from "../../assets/nollywood movies/King of Boys.jpg";
-import manPikinPoster from "../../assets/nollywood movies/Man Pikin.jpg";
-import blackBookPoster from "../../assets/nollywood movies/The Black Book.jpg";
-import partyPoster from "../../assets/nollywood movies/The Party.jpg";
-import loveInEveryWordPoster from "../../assets/nollywood movies/Love in every word.jpg";
-import loveSpicePoster from "../../assets/nollywood movies/Love spice.jpg";
+import anikulapoPoster from "../../assets/nollywood movies/Anikulapo.webp";
+import atikoPoster from "../../assets/nollywood movies/Atiko.webp";
+import kingOfBoysPoster from "../../assets/nollywood movies/King of Boys.webp";
+import manPikinPoster from "../../assets/nollywood movies/Man Pikin.webp";
+import blackBookPoster from "../../assets/nollywood movies/The Black Book.webp";
+import partyPoster from "../../assets/nollywood movies/The Party.webp";
+import loveInEveryWordPoster from "../../assets/nollywood movies/Love in every word.webp";
+import loveSpicePoster from "../../assets/nollywood movies/Love spice.webp";
 
 const MOVIES = [
   { id: "anikulapo", title: "Anikulapo", poster: anikulapoPoster },
