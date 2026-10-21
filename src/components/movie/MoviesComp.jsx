@@ -5,14 +5,20 @@
 // only how to render one entry plus its Netflix-style hover-expand state.
 
 import {
+  FiBell,
+  FiCheck,
+  FiChevronDown,
   FiPlay,
   FiPlus,
-  FiBell,
   FiThumbsUp,
-  FiChevronDown,
 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+
+import { useMyList } from "../mylist/MyListContext";
+import formatPosterTitle from "./formatPosterTitle";
 
 function MoviesComp({
+  id,
   title,
   poster,
   year = "2024",
@@ -27,6 +33,35 @@ function MoviesComp({
   onHoverStart,
   onHoverEnd,
 }) {
+  const navigate = useNavigate();
+  const { toggleSavedItem, hasSavedItem } = useMyList();
+  const displayTitle = formatPosterTitle(title);
+  const isSaved = hasSavedItem(id ?? title);
+
+  const handlePlay = (event) => {
+    event.stopPropagation();
+    const itemId = id ?? title;
+    if (itemId) {
+      navigate(`/watch/${encodeURIComponent(itemId)}`);
+    }
+  };
+
+  const handleToggleSaved = (event) => {
+    event.stopPropagation();
+    const itemId = id ?? title;
+    toggleSavedItem({
+      id: itemId,
+      title: displayTitle,
+      poster,
+      year,
+      type,
+      rating,
+      duration,
+      quality,
+      genres,
+    });
+  };
+
   return (
     <div
       onMouseEnter={onHoverStart}
@@ -38,11 +73,10 @@ function MoviesComp({
         isHovered ? "trend-glow--active z-10" : "z-0"
       }`}
     >
-      {/* Poster / key art */}
       <div className="relative aspect-2/3 w-full overflow-hidden rounded-lg bg-[#111414]">
         <img
           src={poster}
-          alt={title}
+          alt={displayTitle}
           loading="lazy"
           decoding="async"
           className={`h-full w-full object-cover transition-transform duration-300 ease-out ${
@@ -50,9 +84,6 @@ function MoviesComp({
           }`}
         />
 
-        {/* Optional ribbon, e.g. "New Season" / "Recently Added" — kept
-            on-brand (teal) instead of Netflix's red, per the SUBNET
-            color system. */}
         {badge && (
           <span className="absolute bottom-2 left-2 rounded bg-[#00B8A9] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
             {badge}
@@ -89,7 +120,8 @@ function MoviesComp({
           <div className="flex items-center gap-2">
             <button
               type="button"
-              aria-label={`Play ${title}`}
+              aria-label={`Play ${displayTitle}`}
+              onClick={handlePlay}
               className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-black transition-colors duration-150 hover:bg-white/85 cursor-pointer"
             >
               <FiPlay size={14} />
@@ -103,10 +135,15 @@ function MoviesComp({
             </button>
             <button
               type="button"
-              aria-label="Add to My List"
-              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/50 text-white transition-colors duration-150 hover:border-white cursor-pointer"
+              aria-label={isSaved ? `Remove ${displayTitle} from My List` : `Add ${displayTitle} to My List`}
+              onClick={handleToggleSaved}
+              className={`flex h-8 w-8 items-center justify-center rounded-full border transition-colors duration-150 cursor-pointer ${
+                isSaved
+                  ? "border-[#00D4C7] bg-[#00D4C7] text-[#071111]"
+                  : "border-white/50 text-white hover:border-white"
+              }`}
             >
-              <FiPlus size={14} />
+              {isSaved ? <FiCheck size={14} /> : <FiPlus size={14} />}
             </button>
             <button
               type="button"

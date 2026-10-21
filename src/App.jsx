@@ -1,11 +1,14 @@
 import MainLayout from "./components/layout/MainLayout";
+import { MyListProvider } from "./components/mylist/MyListContext";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <MainLayout>
-      <AppRoutes />
-    </MainLayout>
+    <MyListProvider>
+      <MainLayout>
+        <AppRoutes />
+      </MainLayout>
+    </MyListProvider>
   );
 }
 

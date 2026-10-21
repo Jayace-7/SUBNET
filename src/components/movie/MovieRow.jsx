@@ -95,7 +95,7 @@ function MovieRow({
   const previousLabel = `Previous ${ariaLabel ?? title}`;
   const nextLabel = `Next ${ariaLabel ?? title}`;
   const arrowButtonClass =
-    "absolute inset-y-0 z-50 flex w-14 items-center justify-center bg-transparent text-transparent transition-colors duration-200 hover:bg-[#070909]/70 hover:text-white focus-visible:bg-[#070909]/70 focus-visible:text-white focus-visible:outline-none";
+    "absolute inset-y-0 z-10 flex w-14 items-center justify-center bg-transparent text-transparent transition-colors duration-200 hover:bg-[#070909]/70 hover:text-white focus-visible:bg-[#070909]/70 focus-visible:text-white focus-visible:outline-none";
 
   return (
     <section className={className}>

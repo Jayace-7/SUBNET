@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   FiBell,
   FiBookmark,
@@ -27,17 +27,26 @@ function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef(null);
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   // The background changes on scroll, while the border animation remains a
   // separate visual treatment so one behavior does not control the other.
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+      setScrolled(scrollPosition > 40);
+    };
 
     handleScroll();
+    // Recheck after route changes, once the browser has applied scroll restoration.
+    const frameId = window.requestAnimationFrame(handleScroll);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [pathname]);
 
   // Close the profile menu when the user clicks outside of it.
   useEffect(() => {
