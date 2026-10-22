@@ -4,8 +4,10 @@
 // Currently hardcoded to "Dune: Part Two" per the approved reference.
 
 import { useRef, useState } from "react";
-import { FiPlay, FiPlus } from "react-icons/fi";
+import { FiCheck, FiPlay, FiPlus, FiVolume2, FiVolumeX } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
+import { useMyList } from "../mylist/MyListContext";
 import heroImage from "../../assets/hero/dune-part-two-hero.webp";
 import heroTrailer from "../../assets/hero/dune-part-two-preview.mp4";
 
@@ -24,15 +26,22 @@ const FEATURED = {
 };
 
 function HeroBanner() {
+  const navigate = useNavigate();
+  const { hasSavedItem, toggleSavedItem } = useMyList();
   const [isHovering, setIsHovering] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
   const videoRef = useRef(null);
+  const isSaved = hasSavedItem("dune-part-two");
 
   const handleMouseEnter = () => {
     setIsHovering(true);
     const video = videoRef.current;
     if (video) {
       video.currentTime = 0;
-      video.play().catch(() => {});
+      video.muted = isMuted;
+      video.play().catch((error) => {
+        console.warn("Unable to start hero trailer playback", error);
+      });
     }
   };
 
@@ -43,6 +52,31 @@ function HeroBanner() {
       video.pause();
       video.currentTime = 0;
     }
+  };
+
+  const handleToggleMute = () => {
+    const video = videoRef.current;
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+
+    if (video) {
+      video.muted = nextMuted;
+      if (!nextMuted && video.paused) {
+        video.play().catch((error) => {
+          console.warn("Unable to start hero trailer playback", error);
+        });
+      }
+    }
+  };
+
+  const handleToggleSaved = () => {
+    toggleSavedItem({
+      id: "dune-part-two",
+      title: "Dune Part Two",
+      type: "movie",
+      poster: heroImage,
+      year: FEATURED.year,
+    });
   };
 
   return (
@@ -65,7 +99,7 @@ function HeroBanner() {
       <video
          ref={videoRef}
       src={heroTrailer}
-      muted
+      muted={isMuted}
       loop
       playsInline
       preload="none"
@@ -73,6 +107,17 @@ function HeroBanner() {
       isHovering ? "opacity-100" : "opacity-0"
     }`}
   />
+
+      <button
+        type="button"
+        aria-label={isMuted ? "Turn trailer sound on" : "Turn trailer sound off"}
+        aria-pressed={!isMuted}
+        title={isMuted ? "Turn sound on" : "Turn sound off"}
+        onClick={handleToggleMute}
+        className="absolute right-5 top-5 z-20 inline-flex h-10 w-10 items-center justify-center text-white transition-colors hover:text-[#00D4C7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00D4C7]"
+      >
+        {isMuted ? <FiVolumeX className="h-5 w-5" /> : <FiVolume2 className="h-5 w-5" />}
+      </button>
 
       {/* Left-to-right scrim so text stays legible over any hero image */}
       <div
@@ -127,13 +172,23 @@ function HeroBanner() {
           </p>
 
           <div className="flex items-center gap-3">
-            <button className="flex cursor-pointer items-center gap-1 rounded-md bg-teal-500 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_4px_16px_rgba(20,184,166,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-400 hover:shadow-[0_8px_20px_rgba(45,212,191,0.35)]">
+            <button
+              type="button"
+              onClick={() => navigate(`/watch/${encodeURIComponent("dune-part-two")}`)}
+              className="flex cursor-pointer items-center gap-1 rounded-md bg-teal-500 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_4px_16px_rgba(20,184,166,0.35)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-teal-400 hover:shadow-[0_8px_20px_rgba(45,212,191,0.35)]"
+            >
               <FiPlay className="h-3.5 w-3.5" />
               Watch Now
             </button>
-            <button className="flex cursor-pointer items-center gap-1 rounded-md border border-white/65 bg-[#070909]/45 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00D4C7] hover:bg-white/10 hover:shadow-[0_8px_20px_rgba(0,212,199,0.2)]">
-              <FiPlus className="h-3.5 w-3.5" />
-              My List
+            <button
+              type="button"
+              onClick={handleToggleSaved}
+              aria-pressed={isSaved}
+              aria-label={isSaved ? "Remove Dune Part Two from My List" : "Add Dune Part Two to My List"}
+              className="flex cursor-pointer items-center gap-1 rounded-md border border-white/65 bg-[#070909]/45 px-3 py-1.5 text-xs font-semibold text-white shadow-[0_4px_16px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00D4C7] hover:bg-white/10 hover:shadow-[0_8px_20px_rgba(0,212,199,0.2)]"
+            >
+              {isSaved ? <FiCheck className="h-3.5 w-3.5" /> : <FiPlus className="h-3.5 w-3.5" />}
+              {isSaved ? "In My List" : "My List"}
             </button>
           </div>
         </div>
