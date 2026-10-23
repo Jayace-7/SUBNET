@@ -57,10 +57,7 @@
 }
 
 /*
-  SUBNET animated perimeter.
-  The gradient continuously travels around the rounded surface. It is kept
-  subtle at rest and becomes slightly brighter when the user hovers/focuses
-  the navigation surface.
+  SUBNET animated perimeter, activated by the navbar's scroll state.
 */
 .subnet-glow-border {
   position: relative;
@@ -96,17 +93,14 @@
   mask-composite: exclude;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 300ms ease;
   animation: subnet-border-flow 8s linear infinite;
 }
 
-.subnet-glow-border:hover::before,
-.subnet-glow-border:focus-within::before,
 .subnet-glow-border--active::before {
   opacity: 1;
 }
 
-.subnet-glow-border:hover,
-.subnet-glow-border:focus-within,
 .subnet-glow-border--active {
   border-color: rgba(0, 212, 199, 0.8);
   box-shadow: 0 0 18px rgba(0, 212, 199, 0.2), 0 12px 40px rgba(0, 0, 0, 0.35);
