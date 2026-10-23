@@ -109,8 +109,8 @@ function Navbar() {
               className="flex shrink-0 items-center gap-3"
               onClick={() => setMobileOpen(false)}
             >
-              <Logo height={150} className="sm:hidden" />
-              <Logo height={150} className="hidden sm:block" />
+              <Logo height={48} className="sm:hidden" />
+              <Logo height={48} className="hidden sm:block" />
             </Link>
 
             {/* Desktop navigation links. */}
@@ -243,7 +243,7 @@ function Navbar() {
               className="absolute left-1/2 -translate-x-1/2 flex items-center gap-3"
               onClick={() => setMobileOpen(false)}
             >
-              <Logo height={150} />
+              <Logo height={48} />
             </Link>
 
             {/* Right Side */}
@@ -321,7 +321,7 @@ function Navbar() {
           <div className="relative flex h-32.5 items-center justify-between border-b border-white/10 px-7">
 
             {/* Logo */}
-            <Logo height={150} />
+            <Logo height={48} />
 
             {/* Close */}
             <button

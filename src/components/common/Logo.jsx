@@ -1,4 +1,4 @@
-import logoSrc from "../../assets/logo/subnet-logo.webp";
+﻿import logoSrc from "../../assets/logo/subnet-logo.svg";
 
 /**
  * Reusable SUBNET brand mark.
