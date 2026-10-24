@@ -142,6 +142,12 @@ function Hero() {
       className="relative z-0 mx-5 mt-22 h-[clamp(27rem,calc(100svh-6.5rem),46rem)] w-[calc(100%-2.5rem)] overflow-hidden rounded-2xl border border-[#00D4C7]/35 bg-[#070909] shadow-[0_0_0_1px_rgba(0,212,199,0.08),0_10px_36px_rgba(0,212,199,0.14)] sm:mx-8 sm:mt-26 sm:w-[calc(100%-4rem)]"
     >
       <img
+        src="/favicon.png"
+        alt="SUBNET"
+        className="absolute left-5 top-5 z-20 h-10 w-10 object-contain sm:left-8 sm:top-7 sm:h-12 sm:w-12"
+      />
+
+      <img
         src={breakingBadPoster}
         alt="Breaking Bad"
         className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ease-in-out ${isHovering ? "opacity-0" : "opacity-100"}`}
