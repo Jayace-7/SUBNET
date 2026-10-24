@@ -101,7 +101,7 @@ function Hero() {
       <img
         src="/favicon.png"
         alt="SUBNET"
-        className="absolute left-5 top-5 z-20 h-10 w-10 object-contain sm:left-8 sm:top-7 sm:h-12 sm:w-12"
+        className="absolute left-5 top-5 z-20 h-6 w-6 object-contain sm:left-8 sm:top-7 sm:h-12 sm:w-12"
       />
 
       <img
