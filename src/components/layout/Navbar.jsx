@@ -7,13 +7,13 @@ import {
   FiFilm,
   FiHome,
   FiLogOut,
-  FiSearch,
   FiSettings,
   FiTv,
   FiUser,
 } from "react-icons/fi";
 
 import Logo from "../common/Logo";
+import Search from "../../pages/Search/Search";
 
 const NAV_LINKS = [
   { label: "Home", to: "/", icon: FiHome, end: true },
@@ -33,18 +33,31 @@ function Navbar() {
   // The background changes on scroll, while the border animation remains a
   // separate visual treatment so one behavior does not control the other.
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-      setScrolled(scrollPosition > 40);
+    const handleScroll = (event) => {
+      const pageScrollPosition =
+        window.scrollY || document.documentElement.scrollTop;
+      const searchScrollPosition =
+        event?.target?.id === "subnet-search-results"
+          ? event.target.scrollTop
+          : 0;
+      setScrolled(
+        pathname === "/search" ||
+          Math.max(pageScrollPosition, searchScrollPosition) > 40,
+      );
     };
 
     handleScroll();
     // Recheck after route changes, once the browser has applied scroll restoration.
     const frameId = window.requestAnimationFrame(handleScroll);
     window.addEventListener("scroll", handleScroll, { passive: true });
+    document.addEventListener("scroll", handleScroll, {
+      capture: true,
+      passive: true,
+    });
     return () => {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("scroll", handleScroll, true);
     };
   }, [pathname]);
 
@@ -139,14 +152,7 @@ function Navbar() {
 
           {/* Desktop actions. */}
           <div className="hidden items-center gap-1 lg:flex mt-3">
-            <button
-              type="button"
-              onClick={goToSearch}
-              aria-label="Search"
-              className="rounded-full p-2.5 text-white/85 transition-colors duration-200 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9] cursor-pointer"
-            >
-              <FiSearch size={21} strokeWidth={1.8} />
-            </button>
+            <Search />
 
             <span className="mx-2 h-7 w-px bg-white/15" aria-hidden="true" />
 
