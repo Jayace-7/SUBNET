@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { FiSearch, FiX } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const posterFiles = import.meta.glob("../../assets/**/*.webp", {
   eager: true,
@@ -81,9 +82,9 @@ const EXPLORE_TERMS = [
   ]),
 ];
 
-function ResultCard({ item }) {
-  return (
-    <article className="group relative aspect-video overflow-hidden rounded-lg bg-[#111414] transition duration-300 hover:z-10 hover:scale-[1.03] hover:shadow-[0_12px_30px_rgba(0,0,0,0.6)] hover:ring-2 hover:ring-[#00D4C7]">
+function ResultCard({ item, onSelect }) {
+  const card = (
+    <article className="trend-glow search-result-glow group relative aspect-video overflow-hidden rounded-lg bg-[#111414] transition duration-300 hover:z-10">
       {item.poster ? (
         <img
           src={item.poster}
@@ -103,6 +104,17 @@ function ResultCard({ item }) {
         </p>
       </div>
     </article>
+  );
+
+  const itemId = normalize(item.title).join("-");
+  return (
+    <Link
+      to={`/watch/${encodeURIComponent(itemId)}`}
+      onClick={onSelect}
+      className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9]"
+    >
+      {card}
+    </Link>
   );
 }
 
@@ -229,7 +241,11 @@ function Search() {
                 className="grid grid-cols-2 gap-x-4 gap-y-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
               >
                 {results.map((item) => (
-                  <ResultCard key={item.id} item={item} />
+                  <ResultCard
+                    key={item.id}
+                    item={item}
+                    onSelect={closeSearch}
+                  />
                 ))}
               </section>
             ) : (
