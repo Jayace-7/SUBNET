@@ -165,7 +165,66 @@
   }
 }
 
+@keyframes subnet-bell-shake {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(-16deg); }
+  40%, 80% { transform: rotate(16deg); }
+}
+
+/* Small teal confetti burst emitted when a movie is liked. */
+.like-confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.like-confetti > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: #00D4C7;
+  animation: subnet-like-confetti 550ms ease-out both;
+}
+
+.like-confetti > span:nth-child(2n) {
+  background: #a7fff5;
+}
+
+.like-confetti > span:nth-child(1) { --confetti-x: -29px; --confetti-y: -22px; }
+.like-confetti > span:nth-child(2) { --confetti-x: -10px; --confetti-y: -34px; }
+.like-confetti > span:nth-child(3) { --confetti-x: 15px; --confetti-y: -31px; }
+.like-confetti > span:nth-child(4) { --confetti-x: 33px; --confetti-y: -14px; }
+.like-confetti > span:nth-child(5) { --confetti-x: 30px; --confetti-y: 18px; }
+.like-confetti > span:nth-child(6) { --confetti-x: 9px; --confetti-y: 33px; }
+.like-confetti > span:nth-child(7) { --confetti-x: -18px; --confetti-y: 29px; }
+.like-confetti > span:nth-child(8) { --confetti-x: -34px; --confetti-y: 10px; }
+
+@keyframes subnet-like-confetti {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.65) rotate(0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(
+      calc(-50% + var(--confetti-x)),
+      calc(-50% + var(--confetti-y))
+    ) scale(0) rotate(150deg);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .animate-\[subnet-bell-shake_450ms_ease-in-out\] {
+    animation: none;
+  }
+
+  .like-confetti > span {
+    animation: none;
+  }
+
   .subnet-glow-border::before {
     animation: none;
   }

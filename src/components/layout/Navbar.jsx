@@ -3,19 +3,17 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   FiBell,
   FiBookmark,
-  FiCheckCircle,
   FiChevronDown,
   FiFilm,
   FiHome,
   FiLogOut,
-  FiMessageCircle,
-  FiPlayCircle,
   FiSettings,
   FiTv,
 } from "react-icons/fi";
 
 import Logo from "../common/Logo";
 import ProfileAvatar from "../common/ProfileAvatar";
+import { useNotifications } from "../notifications/NotificationsContext";
 import Search from "../../pages/Search/Search";
 
 const NAV_LINKS = [
@@ -25,40 +23,17 @@ const NAV_LINKS = [
   { label: "My List", to: "/my-list", icon: FiBookmark },
 ];
 
-const INITIAL_NOTIFICATIONS = [
-  {
-    id: 1,
-    icon: FiPlayCircle,
-    title: "New episode available",
-    message: "A new episode is ready to watch.",
-    timestamp: "2 min ago",
-    unread: true,
-  },
-  {
-    id: 2,
-    icon: FiMessageCircle,
-    title: "Welcome to SUBNET",
-    message: "Your next favorite story is waiting.",
-    timestamp: "1 hour ago",
-    unread: true,
-  },
-  {
-    id: 3,
-    icon: FiCheckCircle,
-    title: "Your list is ready",
-    message: "Titles you save will appear in My List.",
-    timestamp: "Yesterday",
-    unread: false,
-  },
-];
-
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
-  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
+  const {
+    notifications,
+    markNotificationAsRead,
+    markAllNotificationsAsRead,
+  } = useNotifications();
   const desktopProfileRef = useRef(null);
   const mobileProfileRef = useRef(null);
   const settingsRef = useRef(null);
@@ -181,18 +156,6 @@ function Navbar() {
 
   const closeProfile = () => setProfileOpen(false);
   const closeSettings = () => setSettingsOpen(false);
-  const markNotificationAsRead = (id) => {
-    setNotifications((current) =>
-      current.map((notification) =>
-        notification.id === id ? { ...notification, unread: false } : notification,
-      ),
-    );
-  };
-  const markAllNotificationsAsRead = () => {
-    setNotifications((current) =>
-      current.map((notification) => ({ ...notification, unread: false })),
-    );
-  };
   const toggleNotifications = () => setNotificationsOpen((open) => !open);
   const openMobileNotifications = () => {
     setMobileOpen(false);
