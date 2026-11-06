@@ -70,24 +70,24 @@ function MoviesComp({
 
     if (sound === "ring") {
       oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(880, now);
+      oscillator.frequency.setValueAtTime(1760, now);
       volume.gain.setValueAtTime(0.0001, now);
-      volume.gain.exponentialRampToValueAtTime(0.16, now + 0.015);
-      volume.gain.exponentialRampToValueAtTime(0.0001, now + 0.48);
+      volume.gain.exponentialRampToValueAtTime(0.12, now + 0.008);
+      volume.gain.exponentialRampToValueAtTime(0.0001, now + 0.24);
       oscillator.start(now);
-      oscillator.stop(now + 0.5);
+      oscillator.stop(now + 0.26);
 
       const overtone = audioContext.createOscillator();
       const overtoneVolume = audioContext.createGain();
       overtone.type = "sine";
-      overtone.frequency.setValueAtTime(1320, now);
+      overtone.frequency.setValueAtTime(2640, now);
       overtone.connect(overtoneVolume);
       overtoneVolume.connect(audioContext.destination);
       overtoneVolume.gain.setValueAtTime(0.0001, now);
-      overtoneVolume.gain.exponentialRampToValueAtTime(0.045, now + 0.015);
-      overtoneVolume.gain.exponentialRampToValueAtTime(0.0001, now + 0.32);
+      overtoneVolume.gain.exponentialRampToValueAtTime(0.025, now + 0.008);
+      overtoneVolume.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
       overtone.start(now);
-      overtone.stop(now + 0.34);
+      overtone.stop(now + 0.18);
       return;
     }
 
