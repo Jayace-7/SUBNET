@@ -12,10 +12,10 @@ import {
   FiPlayCircle,
   FiSettings,
   FiTv,
-  FiUser,
 } from "react-icons/fi";
 
 import Logo from "../common/Logo";
+import ProfileAvatar from "../common/ProfileAvatar";
 import Search from "../../pages/Search/Search";
 
 const NAV_LINKS = [
@@ -56,9 +56,12 @@ function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
-  const profileRef = useRef(null);
+  const desktopProfileRef = useRef(null);
+  const mobileProfileRef = useRef(null);
+  const settingsRef = useRef(null);
   const notificationsPanelRef = useRef(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -98,14 +101,32 @@ function Navbar() {
   // Close the profile menu when the user clicks outside of it.
   useEffect(() => {
     const handlePointerDown = (event) => {
-      if (!profileRef.current?.contains(event.target)) {
+      if (
+        !desktopProfileRef.current?.contains(event.target) &&
+        !mobileProfileRef.current?.contains(event.target)
+      ) {
         setProfileOpen(false);
+      }
+      if (!settingsRef.current?.contains(event.target)) setSettingsOpen(false);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, []);
+
+  useEffect(() => {
+    if (!profileOpen && !settingsOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setProfileOpen(false);
+        setSettingsOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handlePointerDown);
-    return () => document.removeEventListener("mousedown", handlePointerDown);
-  }, []);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [profileOpen, settingsOpen]);
 
   // Keep the dropdown open for clicks on either responsive bell; close it elsewhere.
   useEffect(() => {
@@ -159,6 +180,7 @@ function Navbar() {
   };
 
   const closeProfile = () => setProfileOpen(false);
+  const closeSettings = () => setSettingsOpen(false);
   const markNotificationAsRead = (id) => {
     setNotifications((current) =>
       current.map((notification) =>
@@ -253,42 +275,76 @@ function Navbar() {
 
               <span className="mx-2 h-7 w-px bg-white/15" aria-hidden="true" />
 
-              <div className="relative" ref={profileRef}>
+              <div className="relative" ref={desktopProfileRef}>
                 <button
                   type="button"
-                  onClick={() => setProfileOpen((open) => !open)}
+                  onClick={() => {
+                    setProfileOpen((open) => !open);
+                    setSettingsOpen(false);
+                  }}
+                  aria-label="Open profile menu"
                   aria-haspopup="menu"
                   aria-expanded={profileOpen}
-                  className="flex items-center gap-4 rounded-full p-2 text-white/85 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9] *:cursor-pointer"
+                  aria-controls="subnet-profile-menu"
+                  className="flex items-center gap-2 rounded-full p-1.5 text-white/85 transition-colors duration-200 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9]"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 bg-white/8">
-                    <FiUser size={16} strokeWidth={1.8} />
-                  </span>
+                  <ProfileAvatar className="h-9 w-9 text-xs" />
                   <FiChevronDown
                     size={16}
-                  className={`-ml-1 transition-transform duration-200 ${
-                  profileOpen ? "rotate-180" : "cursor-pointer"
-          }`}
+                    className={`transition-transform duration-200 ${profileOpen ? "rotate-180" : ""}`}
                   />
                 </button>
 
                 {profileOpen && (
                   <div
+                    id="subnet-profile-menu"
                     role="menu"
-                    className="absolute right-0 top-[calc(100%+10px)] w-48 overflow-hidden rounded-xl border border-[#00B8A9]/25 bg-[#080B0B]/98 p-1.5 shadow-[0_18px_45px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+                    className="absolute right-0 top-[calc(100%+10px)] w-64 overflow-hidden rounded-2xl border border-[#00B8A9]/25 bg-[#080B0B]/98 p-2 shadow-[0_18px_45px_rgba(0,0,0,0.5)] backdrop-blur-xl"
                   >
+                    <div className="flex items-center gap-3 border-b border-white/8 px-3 py-3">
+                      <ProfileAvatar className="h-11 w-11 text-xs" />
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-white">Benjamin Ekam</p>
+                        <p className="mt-0.5 text-xs text-white/45">SUBNET member</p>
+                      </div>
+                    </div>
                     <Link
                       to="/profile"
                       role="menuitem"
                       onClick={closeProfile}
-                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-white/85 transition-colors hover:bg-white/5 hover:text-[#00D4C7]"
+                      className="mt-1 flex items-center justify-between rounded-xl px-3 py-3 text-sm font-medium text-white/85 transition-colors hover:bg-[#00D4C7]/10 hover:text-[#00D4C7]"
                     >
-                      <FiUser size={16} /> Profile
+                      View profile <FiChevronDown className="h-4 w-4 -rotate-90" />
                     </Link>
+                  </div>
+                )}
+              </div>
+
+              <div className="relative ml-1" ref={settingsRef}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSettingsOpen((open) => !open);
+                    setProfileOpen(false);
+                  }}
+                  aria-label="Settings and logout"
+                  aria-haspopup="menu"
+                  aria-expanded={settingsOpen}
+                  aria-controls="subnet-settings-menu"
+                  className="rounded-full p-2.5 text-white/75 transition-colors duration-200 hover:bg-white/5 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00B8A9]"
+                >
+                  <FiSettings size={19} strokeWidth={1.8} />
+                </button>
+                {settingsOpen && (
+                  <div
+                    id="subnet-settings-menu"
+                    role="menu"
+                    className="absolute right-0 top-[calc(100%+10px)] w-48 overflow-hidden rounded-xl border border-[#00B8A9]/25 bg-[#080B0B]/98 p-1.5 shadow-[0_18px_45px_rgba(0,0,0,0.5)] backdrop-blur-xl"
+                  >
                     <button
                       type="button"
                       role="menuitem"
-                      onClick={closeProfile}
+                      onClick={closeSettings}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/85 transition-colors hover:bg-white/5 hover:text-[#00D4C7]"
                     >
                       <FiSettings size={16} /> Settings
@@ -296,7 +352,7 @@ function Navbar() {
                     <button
                       type="button"
                       role="menuitem"
-                      onClick={closeProfile}
+                      onClick={closeSettings}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/85 transition-colors hover:bg-white/5 hover:text-[#00D4C7]"
                     >
                       <FiLogOut size={16} /> Logout
@@ -380,22 +436,42 @@ function Navbar() {
                 </button>
 
                 {/* Profile */}
-                <button
-                  type="button"
-                  aria-label="Profile"
-                className="mr-2 flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
+                <div className="relative" ref={mobileProfileRef}>
+                  <button
+                    type="button"
+                    onClick={() => setProfileOpen((open) => !open)}
+                    aria-label="Open profile menu"
+                    aria-haspopup="menu"
+                    aria-expanded={profileOpen}
+                    aria-controls="subnet-mobile-profile-menu"
+                    className="mr-2 flex rounded-full transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7]"
                   >
-                    <circle cx="12" cy="8" r="3.5" />
-                    <path d="M5 21c.8-4 3.1-6 7-6s6.2 2 7 6" />
-                  </svg>
-                </button>
+                    <ProfileAvatar className="h-8 w-8 text-[10px]" />
+                  </button>
+                  {profileOpen && (
+                    <div
+                      id="subnet-mobile-profile-menu"
+                      role="menu"
+                      className="absolute right-0 top-[calc(100%+12px)] z-60 w-64 overflow-hidden rounded-2xl border border-[#00B8A9]/25 bg-[#080B0B]/98 p-2 shadow-[0_18px_45px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+                    >
+                      <div className="flex items-center gap-3 border-b border-white/8 px-3 py-3">
+                        <ProfileAvatar className="h-11 w-11 text-xs" />
+                        <div className="min-w-0">
+                          <p className="truncate text-sm font-semibold text-white">Alex Morgan</p>
+                          <p className="mt-0.5 text-xs text-white/45">SUBNET member</p>
+                        </div>
+                      </div>
+                      <Link
+                        to="/profile"
+                        role="menuitem"
+                        onClick={closeProfile}
+                        className="mt-1 flex items-center justify-between rounded-xl px-3 py-3 text-sm font-medium text-white/85 transition-colors hover:bg-[#00D4C7]/10 hover:text-[#00D4C7]"
+                      >
+                        View profile <FiChevronDown className="h-4 w-4 -rotate-90" />
+                      </Link>
+                    </div>
+                  )}
+                </div>
 
               </div>
             </div>

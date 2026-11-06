@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   FiBookmark,
   FiChevronRight,
@@ -7,7 +7,7 @@ import {
   FiPlus,
   FiTrash2,
 } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import heroBackground from "../../assets/movies hero/Spider man brand new day.webp";
 import { useMyList } from "../../components/mylist/MyListContext";
@@ -21,8 +21,23 @@ const TAB_OPTIONS = [
 // Shows the saved titles and lets the user switch between list tabs.
 function Mylist() {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { savedItems, continueWatching, watchLater, removeSavedItem, getSavedItem } = useMyList();
-  const [activeTab, setActiveTab] = useState("all");
+  const requestedTab = searchParams.get("tab");
+  const activeTab = TAB_OPTIONS.some(({ id }) => id === requestedTab) ? requestedTab : "all";
+
+  // Keep the selected library section addressable from profile links and browser history.
+  const selectTab = (tab) => {
+    setSearchParams((current) => {
+      const next = new URLSearchParams(current);
+      if (tab === "all") {
+        next.delete("tab");
+      } else {
+        next.set("tab", tab);
+      }
+      return next;
+    });
+  };
 
   // Picks the titles that match the selected tab.
   const filteredItems = useMemo(() => {
@@ -51,7 +66,7 @@ function Mylist() {
           </div>
           <button
             type="button"
-            onClick={() => setActiveTab(type === "continue" ? "continue-watching" : "watch-later")}
+            onClick={() => selectTab(type === "continue" ? "continue-watching" : "watch-later")}
             className="inline-flex items-center gap-2 text-sm font-medium text-[#00D4C7] transition-colors hover:text-[#65f0ea]"
           >
             View All <FiChevronRight className="h-4 w-4" />
@@ -161,7 +176,7 @@ function Mylist() {
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => selectTab(tab.id)}
                   className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${
                     activeTab === tab.id
                       ? "bg-[#00D4C7] text-[#061010] shadow-[0_0_20px_rgba(0,212,199,0.35)]"
