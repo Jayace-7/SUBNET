@@ -10,6 +10,13 @@ import Profile from "../pages/Profile/Profile";
 import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import NotFound from "../pages/NotFound/NotFound";
+import Settings from "../pages/Settings/Settings";
+import BillingLayout from "../pages/Settings/Billing/BillingLayout";
+import Billing from "../pages/Settings/Billing/Billing";
+import Plans from "../pages/Settings/Billing/Plans";
+import PaymentMethods from "../pages/Settings/Billing/PaymentMethods";
+import PaymentHistory from "../pages/Settings/Billing/PaymentHistory";
+import BillingManagement from "../pages/Settings/Billing/BillingManagement";
 
 function AppRoutes() {
   return (
@@ -21,6 +28,14 @@ function AppRoutes() {
       <Route path="/my-list" element={<Mylist />} />
       <Route path="/watch/:id" element={<Watch />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/settings/billing" element={<BillingLayout />}>
+        <Route index element={<Billing />} />
+        <Route path="plans" element={<Plans />} />
+        <Route path="payment-methods" element={<PaymentMethods />} />
+        <Route path="payment-history" element={<PaymentHistory />} />
+        <Route path="management" element={<BillingManagement />} />
+      </Route>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="*" element={<NotFound />} />

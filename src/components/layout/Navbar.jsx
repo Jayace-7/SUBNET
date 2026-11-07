@@ -304,14 +304,14 @@ function Navbar() {
                     role="menu"
                     className="absolute right-0 top-[calc(100%+10px)] w-48 overflow-hidden rounded-xl border border-[#00B8A9]/25 bg-[#080B0B]/98 p-1.5 shadow-[0_18px_45px_rgba(0,0,0,0.5)] backdrop-blur-xl"
                   >
-                    <button
-                      type="button"
+                    <Link
+                      to="/settings"
                       role="menuitem"
                       onClick={closeSettings}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/85 transition-colors hover:bg-white/5 hover:text-[#00D4C7]"
                     >
                       <FiSettings size={16} /> Settings
-                    </button>
+                    </Link>
                     <button
                       type="button"
                       role="menuitem"
@@ -755,8 +755,9 @@ function Navbar() {
 
 
                 {/* Settings */}
-                <button
-                  type="button"
+                <Link
+                  to="/settings"
+                  onClick={() => setMobileOpen(false)}
                   className="flex w-full items-center gap-8 rounded-xl px-4 py-3.5 text-left text-white transition-colors hover:bg-white/5 hover:text-[#00D4C7]"
                 >
                   <svg
@@ -773,7 +774,7 @@ function Navbar() {
                   <span className="text-lg font-semibold">
                     Settings
                   </span>
-                </button>
+                </Link>
 
               </div>
 
