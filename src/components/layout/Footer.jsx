@@ -14,7 +14,7 @@ const FOOTER_LINKS = [
   {
     title: "Explore",
     links: [
-      { label: "Home", to: "/" },
+      { label: "Home", to: "/home" },
       { label: "Movies", to: "/movies" },
       { label: "TV Shows", to: "/tv-shows" },
       { label: "My List", to: "/my-list" },
@@ -24,8 +24,8 @@ const FOOTER_LINKS = [
     title: "Account",
     links: [
       { label: "Profile", to: "/profile" },
-      { label: "Sign in", to: "/login" },
-      { label: "Create account", to: "/register" },
+      { label: "Sign in", to: "/signin" },
+      { label: "Create account", to: "/signup" },
       { label: "Search", to: "/search" },
     ],
   },

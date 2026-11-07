@@ -7,8 +7,8 @@ import Search from "../pages/Search/Search";
 import Mylist from "../pages/Mylist/Mylist";
 import Watch from "../pages/Watch/Watch";
 import Profile from "../pages/Profile/Profile";
-import Login from "../pages/Login/Login";
-import Register from "../pages/Register/Register";
+import SignIn from "../pages/Auth/SignIn";
+import SignUp from "../pages/Auth/SignUp";
 import NotFound from "../pages/NotFound/NotFound";
 import Settings from "../pages/Settings/Settings";
 import BillingLayout from "../pages/Settings/Billing/BillingLayout";
@@ -17,11 +17,13 @@ import Plans from "../pages/Settings/Billing/Plans";
 import PaymentMethods from "../pages/Settings/Billing/PaymentMethods";
 import PaymentHistory from "../pages/Settings/Billing/PaymentHistory";
 import BillingManagement from "../pages/Settings/Billing/BillingManagement";
+import Landing from "../pages/Landing/Landing";
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
       <Route path="/movies" element={<Movies />} />
       <Route path="/tv-shows" element={<Tvshows />} />
       <Route path="/search" element={<Search />} />
@@ -36,8 +38,8 @@ function AppRoutes() {
         <Route path="payment-history" element={<PaymentHistory />} />
         <Route path="management" element={<BillingManagement />} />
       </Route>
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   FiBell,
@@ -9,6 +10,7 @@ import {
   FiLogOut,
   FiSettings,
   FiTv,
+  FiX,
 } from "react-icons/fi";
 
 import Logo from "../common/Logo";
@@ -17,7 +19,7 @@ import { useNotifications } from "../notifications/NotificationsContext";
 import Search from "../../pages/Search/Search";
 
 const NAV_LINKS = [
-  { label: "Home", to: "/", icon: FiHome, end: true },
+  { label: "Home", to: "/home", icon: FiHome, end: true },
   { label: "Movies", to: "/movies", icon: FiFilm },
   { label: "TV Shows", to: "/tv-shows", icon: FiTv },
   { label: "My List", to: "/my-list", icon: FiBookmark },
@@ -29,6 +31,10 @@ function Navbar() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
+  const [logoutClosing, setLogoutClosing] = useState(false);
+  const [logoutProcessing, setLogoutProcessing] = useState(false);
+  const [logoutComplete, setLogoutComplete] = useState(false);
   const {
     notifications,
     markNotificationAsRead,
@@ -37,6 +43,14 @@ function Navbar() {
   const desktopProfileRef = useRef(null);
   const mobileProfileRef = useRef(null);
   const settingsRef = useRef(null);
+  const settingsButtonRef = useRef(null);
+  const mobileMenuButtonRef = useRef(null);
+  const logoutCloseButtonRef = useRef(null);
+  const logoutCancelButtonRef = useRef(null);
+  const logoutConfirmButtonRef = useRef(null);
+  const logoutReturnFocusRef = useRef(null);
+  const logoutTimerRef = useRef(null);
+  const logoutCloseTimerRef = useRef(null);
   const notificationsPanelRef = useRef(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -156,11 +170,118 @@ function Navbar() {
 
   const closeProfile = () => setProfileOpen(false);
   const closeSettings = () => setSettingsOpen(false);
+  const openLogout = (fromMobile = false) => {
+    if (logoutOpen) return;
+    logoutReturnFocusRef.current = fromMobile
+      ? mobileMenuButtonRef.current
+      : settingsButtonRef.current;
+    setSettingsOpen(false);
+    setMobileOpen(false);
+    setLogoutClosing(false);
+    setLogoutProcessing(false);
+    setLogoutComplete(false);
+    setLogoutOpen(true);
+  };
+  const closeLogout = useCallback(() => {
+    if (logoutClosing) return;
+    window.clearTimeout(logoutTimerRef.current);
+    setLogoutProcessing(false);
+    setLogoutComplete(false);
+    setLogoutClosing(true);
+    logoutCloseTimerRef.current = window.setTimeout(() => {
+      setLogoutOpen(false);
+      setLogoutClosing(false);
+      window.requestAnimationFrame(() => logoutReturnFocusRef.current?.focus());
+    }, 160);
+  }, [logoutClosing]);
+  const confirmLogout = () => {
+    if (logoutProcessing || logoutClosing) return;
+    setLogoutProcessing(true);
+    setLogoutComplete(false);
+    logoutTimerRef.current = window.setTimeout(() => {
+      setLogoutComplete(true);
+      logoutTimerRef.current = window.setTimeout(() => {
+        setLogoutOpen(false);
+        setLogoutClosing(false);
+        setLogoutProcessing(false);
+        setLogoutComplete(false);
+        navigate("/");
+      }, 1100);
+    }, 700);
+  };
   const toggleNotifications = () => setNotificationsOpen((open) => !open);
   const openMobileNotifications = () => {
     setMobileOpen(false);
     setNotificationsOpen(true);
   };
+
+  useEffect(() => {
+    if (!logoutOpen) return undefined;
+
+    const root = document.getElementById("root");
+    const previousOverflow = document.body.style.overflow;
+    const previousInert = root?.inert ?? false;
+    const previousAriaHidden = root?.getAttribute("aria-hidden");
+
+    document.body.style.overflow = "hidden";
+    if (root) {
+      root.inert = true;
+      root.setAttribute("aria-hidden", "true");
+    }
+    logoutCancelButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      if (root) {
+        root.inert = previousInert;
+        if (previousAriaHidden === null) {
+          root.removeAttribute("aria-hidden");
+        } else {
+          root.setAttribute("aria-hidden", previousAriaHidden);
+        }
+      }
+    };
+  }, [logoutOpen]);
+
+  useEffect(() => {
+    if (!logoutOpen) return undefined;
+
+    const handleDialogKeyDown = (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeLogout();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const focusable = [
+        logoutCloseButtonRef.current,
+        logoutCancelButtonRef.current,
+        logoutConfirmButtonRef.current,
+      ].filter((element) => element && !element.disabled);
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleDialogKeyDown);
+    return () => document.removeEventListener("keydown", handleDialogKeyDown);
+  }, [logoutOpen, logoutClosing, closeLogout]);
+
+  useEffect(
+    () => () => {
+      window.clearTimeout(logoutTimerRef.current);
+      window.clearTimeout(logoutCloseTimerRef.current);
+    },
+    [],
+  );
 
   return (
     <>
@@ -286,6 +407,7 @@ function Navbar() {
               <div className="relative ml-1" ref={settingsRef}>
                 <button
                   type="button"
+                  ref={settingsButtonRef}
                   onClick={() => {
                     setSettingsOpen((open) => !open);
                     setProfileOpen(false);
@@ -315,7 +437,7 @@ function Navbar() {
                     <button
                       type="button"
                       role="menuitem"
-                      onClick={closeSettings}
+                      onClick={() => openLogout()}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-white/85 transition-colors hover:bg-white/5 hover:text-[#00D4C7]"
                     >
                       <FiLogOut size={16} /> Logout
@@ -337,6 +459,7 @@ function Navbar() {
               {/* Hamburger Button */}
               <button
                 type="button"
+                ref={mobileMenuButtonRef}
                 onClick={() => setMobileOpen(true)}
                 aria-label="Open menu"
                 className="flex h-9 w-9 items-center justify-center rounded-md border border-[#00B8A9] bg-[#080B0B]/90 shadow-[0_0_18px_rgba(0,184,169,0.18)] transition-all duration-300 hover:bg-[#00B8A9]/10"
@@ -786,6 +909,7 @@ function Navbar() {
               {/* Logout */}
               <button
                 type="button"
+                onClick={() => openLogout(true)}
                 className="flex w-full items-center gap-8 rounded-xl px-4 py-3.5 text-left text-white transition-colors hover:bg-white/5 hover:text-[#00D4C7]"
               >
                 <svg
@@ -809,6 +933,89 @@ function Navbar() {
           </aside>
         </>
       )}
+
+      {logoutOpen &&
+        createPortal(
+          <div
+            className={`subnet-logout-backdrop fixed inset-0 z-100 flex items-center justify-center overflow-y-auto bg-black/80 px-4 py-8 backdrop-blur-sm ${
+              logoutClosing ? "subnet-logout-backdrop--closing pointer-events-none" : ""
+            }`}
+            onClick={(event) => {
+              if (event.target === event.currentTarget) closeLogout();
+            }}
+          >
+            <section
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="subnet-logout-heading"
+              aria-describedby="subnet-logout-description"
+              className={`subnet-logout-dialog relative w-full max-w-md rounded-3xl border border-[#00D4C7]/25 bg-[#070b0c] p-6 shadow-[0_28px_90px_rgba(0,0,0,0.7),0_0_45px_rgba(0,212,199,0.12)] sm:p-8 ${
+                logoutClosing ? "subnet-logout-dialog--closing" : ""
+              }`}
+            >
+              <button
+                ref={logoutCloseButtonRef}
+                type="button"
+                onClick={closeLogout}
+                aria-label="Close logout confirmation"
+                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-white/55 transition-colors hover:bg-white/5 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7]"
+              >
+                <FiX className="h-5 w-5" aria-hidden="true" />
+              </button>
+
+              <div className="pr-8">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#00D4C7]/20 bg-[#00D4C7]/10 text-[#00D4C7]">
+                  <FiLogOut className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <h2
+                  id="subnet-logout-heading"
+                  className="mt-5 text-2xl font-bold tracking-tight text-white sm:text-[1.7rem]"
+                >
+                  Are you sure you want to log out?
+                </h2>
+                <p
+                  id="subnet-logout-description"
+                  className="mt-3 text-sm leading-6 text-white/55"
+                >
+                  You will need to sign in again to access your SUBNET account.
+                </p>
+              </div>
+
+              {logoutProcessing && (
+                <p role="status" aria-live="polite" className="mt-5 rounded-xl border border-[#00D4C7]/20 bg-[#00D4C7]/8 px-4 py-3 text-sm leading-5 text-[#9df5ef]">
+                  {logoutComplete
+                    ? "Frontend demo complete. Redirecting to sign in; no authentication session has been changed."
+                    : "Completing the frontend logout demonstration..."}
+                </p>
+              )}
+
+              <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                <button
+                  ref={logoutCancelButtonRef}
+                  type="button"
+                  onClick={closeLogout}
+                  className="rounded-full border border-white/12 px-5 py-3 text-sm font-semibold text-white/75 transition-colors hover:border-white/25 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7]"
+                >
+                  Cancel
+                </button>
+                <button
+                  ref={logoutConfirmButtonRef}
+                  type="button"
+                  onClick={confirmLogout}
+                  disabled={logoutProcessing}
+                  className="rounded-full bg-[#00D4C7] px-5 py-3 text-sm font-semibold text-[#061110] transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070b0c]"
+                >
+                  {logoutProcessing ? "Logging out..." : "Log Out"}
+                </button>
+              </div>
+
+              <p className="mt-5 text-center text-xs leading-5 text-white/35">
+                Frontend demonstration only. Your authentication session is not terminated.
+              </p>
+            </section>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
