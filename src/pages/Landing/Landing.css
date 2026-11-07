@@ -51,7 +51,7 @@
 }
 
 .landing-brand img {
-  height: clamp(32px, 3.2vw, 44px) !important;
+  height: clamp(40px, 4vw, 56px) !important;
 }
 
 .landing-auth {
@@ -287,6 +287,10 @@
     padding: 20px 22px;
   }
 
+  .landing-brand img {
+    height: 38px !important;
+  }
+
   .landing-auth {
     gap: 8px;
   }
@@ -341,7 +345,7 @@
   }
 
   .landing-brand img {
-    height: 31px !important;
+    height: 35px !important;
   }
 
   .landing-auth {
@@ -419,7 +423,7 @@
   }
 
   .landing-brand img {
-    height: 27px !important;
+    height: 31px !important;
   }
 
   .landing-button--header {
