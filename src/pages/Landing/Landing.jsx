@@ -16,11 +16,8 @@ function Landing() {
           <Logo height={300} />
         </Link>
         <nav className="landing-auth" aria-label="Account">
-          <Link className="landing-button landing-button--outline landing-button--header" to="/signin">
+          <Link className="landing-button landing-button--outline landing-button--header" to="/home">
             Sign In
-          </Link>
-          <Link className="landing-button landing-button--solid landing-button--header" to="/signup">
-            Sign Up
           </Link>
         </nav>
       </header>
@@ -47,9 +44,6 @@ function Landing() {
         <div className="landing-actions">
           <Link className="landing-button landing-button--solid landing-button--primary" to="/signup">
             Sign Up for Free <FiArrowRight aria-hidden="true" />
-          </Link>
-          <Link className="landing-button landing-button--outline landing-button--primary" to="/signin">
-            Sign In
           </Link>
         </div>
       </div>
