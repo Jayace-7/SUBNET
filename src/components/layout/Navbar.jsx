@@ -925,7 +925,7 @@ function Navbar() {
                 </svg>
 
                 <span className="text-lg font-semibold">
-                  Logout
+                  Sign out
                 </span>
               </button>
 
@@ -937,7 +937,7 @@ function Navbar() {
       {logoutOpen &&
         createPortal(
           <div
-            className={`subnet-logout-backdrop fixed inset-0 z-100 flex items-center justify-center overflow-y-auto bg-black/80 px-4 py-8 backdrop-blur-sm ${
+            className={`subnet-logout-backdrop fixed inset-0 z-100 flex items-center justify-center overflow-y-auto bg-black/35 px-4 py-6 backdrop-blur-md ${
               logoutClosing ? "subnet-logout-backdrop--closing pointer-events-none" : ""
             }`}
             onClick={(event) => {
@@ -949,7 +949,7 @@ function Navbar() {
               aria-modal="true"
               aria-labelledby="subnet-logout-heading"
               aria-describedby="subnet-logout-description"
-              className={`subnet-logout-dialog relative w-full max-w-md rounded-3xl border border-[#00D4C7]/25 bg-[#070b0c] p-6 shadow-[0_28px_90px_rgba(0,0,0,0.7),0_0_45px_rgba(0,212,199,0.12)] sm:p-8 ${
+              className={`subnet-logout-dialog relative w-full max-w-120 rounded-2xl border border-white/10 bg-linear-to-b from-[#091317] to-[#050a0d] px-5 pb-5 pt-5 shadow-[0_24px_64px_rgba(0,0,0,0.65)] sm:px-6 sm:pb-6 ${
                 logoutClosing ? "subnet-logout-dialog--closing" : ""
               }`}
             >
@@ -957,44 +957,43 @@ function Navbar() {
                 ref={logoutCloseButtonRef}
                 type="button"
                 onClick={closeLogout}
-                aria-label="Close logout confirmation"
-                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-white/55 transition-colors hover:bg-white/5 hover:text-[#00D4C7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7]"
+                aria-label="Close sign out confirmation"
+                className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full text-white/55 transition-colors hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7]"
               >
                 <FiX className="h-5 w-5" aria-hidden="true" />
               </button>
 
-              <div className="pr-8">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#00D4C7]/20 bg-[#00D4C7]/10 text-[#00D4C7]">
-                  <FiLogOut className="h-5 w-5" aria-hidden="true" />
-                </span>
-                <h2
-                  id="subnet-logout-heading"
-                  className="mt-5 text-2xl font-bold tracking-tight text-white sm:text-[1.7rem]"
-                >
-                  Are you sure you want to log out?
-                </h2>
-                <p
-                  id="subnet-logout-description"
-                  className="mt-3 text-sm leading-6 text-white/55"
-                >
-                  You will need to sign in again to access your SUBNET account.
-                </p>
+              <div className="flex items-center border-b border-white/8 pb-4 pr-10">
+                <Logo height={36} />
               </div>
 
-              {logoutProcessing && (
-                <p role="status" aria-live="polite" className="mt-5 rounded-xl border border-[#00D4C7]/20 bg-[#00D4C7]/8 px-4 py-3 text-sm leading-5 text-[#9df5ef]">
-                  {logoutComplete
-                    ? "Frontend demo complete. Redirecting to sign in; no authentication session has been changed."
-                    : "Completing the frontend logout demonstration..."}
-                </p>
-              )}
+              <div className="mx-auto mt-5 max-w-92 text-center">
+                <span className="mx-auto flex h-9 w-9 items-center justify-center rounded-xl border border-[#00D4C7]/20 bg-[#00D4C7]/8 text-[#00D4C7]">
+                  <FiLogOut className="h-4 w-4" aria-hidden="true" />
+                </span>
+                <div className="mt-3 min-w-0">
+                  <h2 id="subnet-logout-heading" className="text-xl font-semibold tracking-tight text-white sm:text-2xl">
+                    Sign Out
+                  </h2>
+                  <p id="subnet-logout-description" className="mt-2 text-sm leading-relaxed text-white/65">
+                    Are you sure you want to sign out of SUBNET? You will need to sign in again to access your account.
+                  </p>
 
-              <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                  {logoutProcessing && (
+                    <p role="status" aria-live="polite" className="mt-4 rounded-xl border border-[#00D4C7]/20 bg-[#00D4C7]/6 px-4 py-3 text-sm leading-5 text-[#9df5ef]">
+                      {logoutComplete
+                        ? "Frontend demo complete. Redirecting to sign in; no authentication session has been changed."
+                        : "Completing the frontend logout demonstration..."}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="mt-5 flex justify-center gap-3 border-t border-white/8 pt-4">
                 <button
                   ref={logoutCancelButtonRef}
                   type="button"
                   onClick={closeLogout}
-                  className="rounded-full border border-white/12 px-5 py-3 text-sm font-semibold text-white/75 transition-colors hover:border-white/25 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7]"
+                  className="min-w-26 rounded-lg border border-white/15 px-4 py-2.5 text-sm font-medium text-white/75 transition-colors hover:border-white/30 hover:bg-white/5 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7]"
                 >
                   Cancel
                 </button>
@@ -1003,13 +1002,12 @@ function Navbar() {
                   type="button"
                   onClick={confirmLogout}
                   disabled={logoutProcessing}
-                  className="rounded-full bg-[#00D4C7] px-5 py-3 text-sm font-semibold text-[#061110] transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7] focus-visible:ring-offset-2 focus-visible:ring-offset-[#070b0c]"
+                  className="inline-flex min-w-26 items-center justify-center gap-2 rounded-lg bg-[#00D4C7] px-4 py-2.5 text-sm font-semibold text-[#061110] transition-colors hover:bg-[#35e2d7] disabled:cursor-wait disabled:opacity-65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4C7] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090e10]"
                 >
-                  {logoutProcessing ? "Logging out..." : "Log Out"}
+                  {logoutProcessing ? "Signing out..." : "Sign Out"}
                 </button>
               </div>
-
-              <p className="mt-5 text-center text-xs leading-5 text-white/35">
+              <p className="mt-3 text-center text-[10px] leading-4 text-white/40">
                 Frontend demonstration only. Your authentication session is not terminated.
               </p>
             </section>
@@ -1021,3 +1019,6 @@ function Navbar() {
 }
 
 export default Navbar;
+
+
+
