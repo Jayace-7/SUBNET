@@ -7,6 +7,7 @@ import Footer from "./Footer";
 function MainLayout({ children }) {
   const { pathname } = useLocation();
   const isPublicLanding = pathname === "/";
+  const isAdminRoute = pathname === "/admin" || pathname.startsWith("/admin/");
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -14,13 +15,11 @@ function MainLayout({ children }) {
 
   return (
     <>
-      {!isPublicLanding && <Navbar />}
+      {!isPublicLanding && !isAdminRoute && <Navbar />}
 
-      <main>
-        {children}
-      </main>
+      {isAdminRoute ? children : <main>{children}</main>}
 
-      {!isPublicLanding && <Footer />}
+      {!isPublicLanding && !isAdminRoute && <Footer />}
     </>
   );
 }

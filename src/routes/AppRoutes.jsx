@@ -18,6 +18,7 @@ import PaymentMethods from "../pages/Settings/Billing/PaymentMethods";
 import PaymentHistory from "../pages/Settings/Billing/PaymentHistory";
 import BillingManagement from "../pages/Settings/Billing/BillingManagement";
 import Landing from "../pages/Landing/Landing";
+import AdminRoutes from "../admin/routes/AdminRoutes";
 
 function AppRoutes() {
   return (
@@ -40,6 +41,7 @@ function AppRoutes() {
       </Route>
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/admin/*" element={<AdminRoutes />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
