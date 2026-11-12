@@ -858,11 +858,12 @@
 
 .admin-sidebar__brand > span {
   align-self: center;
-  margin-top: 5px;
+  margin-top: 15px;
   color: #a9b5b4;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.18em;
+  margin-left: 85px;
 }
 
 .admin-sidebar__nav {
