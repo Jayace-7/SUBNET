@@ -6,8 +6,10 @@ This directory is an independent scaffold for the administrator sign-in and dash
 
 - `/admin/login` — dedicated Admin sign-in interface scaffold.
 - `/admin/dashboard` — dashboard layout and section placeholders.
+- `/admin/profile` — administrator profile page with session-only mock editing.
+- `/admin/settings` — settings placeholder for future administrator controls.
 
-The login page includes a client-side registration form mode; switching modes only changes the displayed form. Both routes are currently unprotected. Authentication, account creation, authorization, loading/error handling, analytics data, and backend integrations are not implemented.
+The login page includes a client-side registration form mode; demo sign-in opens the dashboard without validating credentials. Routes are currently unprotected. Dashboard analytics, activity, notifications and service health are demonstration data only. Profile edits are held in page state only; authentication, account creation, authorization, loading/error handling, and backend integrations are not implemented. Password management is reserved for a future Keycloak integration.
 
 ## Structure
 
@@ -23,6 +25,7 @@ admin/
 │   │   └── AdminCard.jsx
 │   ├── dashboard/
 │   │   ├── ContentPerformance.jsx
+│   │   ├── DashboardHero.jsx
 │   │   ├── OverviewCards.jsx
 │   │   ├── RecentActivity.jsx
 │   │   ├── StreamingAnalytics.jsx
@@ -33,10 +36,13 @@ admin/
 │       ├── AdminLayout.jsx
 │       └── AdminSidebar.jsx
 ├── data/
+│   ├── mockAdminProfile.js
 │   └── mockAnalytics.js
 ├── pages/
 │   ├── AdminAuth.jsx
-│   └── AdminDashboard.jsx
+│   ├── AdminDashboard.jsx
+│   ├── AdminProfile.jsx
+│   └── AdminSettings.jsx
 ├── routes/
 │   └── AdminRoutes.jsx
 └── styles/

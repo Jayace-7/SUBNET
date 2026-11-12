@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import AdminButton from "../components/common/AdminButton";
 import Logo from "../../components/common/Logo";
 
-// Scaffolds Admin sign-in and registration; neither flow is connected to authentication.
+// Demo sign-in opens the dashboard without authenticating; registration stays unconnected.
 function AdminAuth() {
   const [mode, setMode] = useState("login");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (mode === "login") navigate("/admin/dashboard");
   }
 
   function switchMode(nextMode) {
@@ -119,7 +122,9 @@ function AdminAuth() {
           </form>
 
           <p aria-live="polite" className="admin-login__notice">
-            Authentication and registration are not connected yet.
+            {isRegistration
+              ? "Registration is not connected yet."
+              : "Demo mode: sign-in opens the dashboard without checking credentials."}
           </p>
 
           <p className="admin-auth__switch">
