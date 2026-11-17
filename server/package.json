@@ -1,0 +1,18 @@
+{
+  "name": "subnet-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Backend structure for the SUBNET streaming platform.",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
