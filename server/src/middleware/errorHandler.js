@@ -23,5 +23,9 @@ export function errorHandler(err, req, res, next) {
   if (err.isOperational) message = err.message;
   else if (statusCode < 500) message = 'Bad request';
 
-  res.status(statusCode).json({ status: 'error', message });
+  // Build the response. Only our own AppErrors may attach safe details
+  // (for example the list of validation problems). Never attach raw error objects.
+  const body = { status: 'error', message };
+  if (err.isOperational && err.details) body.details = err.details;
+  res.status(statusCode).json(body);
 }

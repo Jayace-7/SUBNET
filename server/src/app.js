@@ -4,6 +4,7 @@ import { notFound } from './middleware/notFound.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { securityHeaders, corsPolicy, rateLimiter } from './middleware/security.js';
 import { env } from './config/env.js';
+import apiRoutes from './routes/index.js';
 
 const app = express();
 
@@ -30,6 +31,9 @@ app.get('/health', (req, res) => {
     message: 'Backend structure initialized.',
   });
 });
+
+// All versioned API routes live under /api (for example /api/v1/health).
+app.use('/api', apiRoutes);
 
 // Handles requests to URLs that do not match any registered route.
 app.use(notFound);
