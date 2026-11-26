@@ -24,13 +24,27 @@ export function validate(schemas) {
         validated[part] = result.data;
       } else {
         for (const issue of result.error.issues) {
-          // Only the location, field name, and message are returned. We never echo
-          // back the submitted values, and details are never written to the logs.
-          problems.push({
-            in: part,
-            field: issue.path.join('.'),
-            message: issue.message,
-          });
+          if (issue.code === 'unrecognized_keys') {
+            // zod reports ALL unexpected keys in ONE issue whose path is empty,
+            // so joining the path would give a blank field name. We create one
+            // problem per unexpected key instead, named by the key itself.
+            // The message is fixed text, so submitted values are never echoed.
+            for (const key of issue.keys) {
+              problems.push({
+                in: part,
+                field: [...issue.path, key].join('.'),
+                message: 'Unexpected field',
+              });
+            }
+          } else {
+            // Only the location, field name, and message are returned. We never echo
+            // back the submitted values, and details are never written to the logs.
+            problems.push({
+              in: part,
+              field: issue.path.join('.'),
+              message: issue.message,
+            });
+          }
         }
       }
     }
